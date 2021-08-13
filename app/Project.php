@@ -28,15 +28,33 @@ class Project extends Model
 
     public function getLogoAttribute()
     {
-        return $this->assets()->where('type', ProjectAsset::LOGO_ASSET)->first();
+        $logo = $this->assets()
+            ->where('type', ProjectAsset::LOGO_ASSET)
+            ->first();
+        $logo->url = url("storage/projects/{$logo->path}");
+        return $logo;
     }
 
     public function getVideosAttribute()
     {
-        return $this->assets()->where('type', ProjectAsset::VIDEO_ASSET)->get();
+        return $this->assets()
+            ->where('type', ProjectAsset::VIDEO_ASSET)
+            ->get()
+            ->map(function ($i) {
+                $i->url = str_replace("watch?v=", "embed/", $i->path);
+                return $i;
+            });
     }
+
     public function getImagesAttribute()
     {
-        return $this->assets()->where('type', ProjectAsset::IMAGE_ASSET)->get();
+        $images = $this->assets()
+            ->where('type', ProjectAsset::IMAGE_ASSET)
+            ->get()
+            ->map(function ($i) {
+                $i->url = url("storage/projects/{$i->path}");
+                return $i;
+            });
+        return $images;
     }
 }

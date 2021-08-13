@@ -116,23 +116,47 @@ class DatabaseSeeder extends Seeder
             }
 
             // Logo
-            $project->assets()->save(
-                new ProjectAsset([
-                    'path' => "logo-{$i}.png",
-                    'type' => ProjectAsset::LOGO_ASSET,
-                ])
-            );
+            $project->assets()->save($this->getProjectLogo());
 
             // Imagenes
-            for ($k = 0; $k < $faker->numberBetween(1, 5); $k++) {
-                $project->assets()->save(
-                    new ProjectAsset([
-                        'path' => "image-{$i}-{$k}.png",
-                        'type' => ProjectAsset::IMAGE_ASSET,
-                    ])
-                );
-            }
+            $project->assets()->saveMany($this->getProjectImages());
         }
+    }
+
+    public function getProjectLogo()
+    {
+        $faker = Factory::create();
+        $files = \Storage::files('public/projects');
+        $files = collect($files)->filter(function ($file, $key) {
+            $filename = array_reverse(explode('/', $file))[0];
+            return strpos($filename, 'icon-') === 0;
+        });
+        $file = $files->random(1)->first();
+        return new ProjectAsset([
+            'path' => array_reverse(explode('/', $file))[0],
+            'type' => ProjectAsset::LOGO_ASSET,
+        ]);
+    }
+
+    public function getProjectImages()
+    {
+        $list = [];
+        $faker = Factory::create();
+        $files = \Storage::files('public/projects');
+        $files = collect($files)->filter(function ($file, $key) {
+            $filename = array_reverse(explode('/', $file))[0];
+            return strpos($filename, 'icon-') === false;
+        });
+
+        for ($k = 0; $k < $faker->numberBetween(1, 5); $k++) {
+            $file = $files->random(1)->first();
+            $list[] = new ProjectAsset([
+                'path' => array_reverse(explode('/', $file))[0],
+                'type' => ProjectAsset::IMAGE_ASSET,
+            ]);
+        }
+
+        return $list;
     }
 
     public function seedLinks()
