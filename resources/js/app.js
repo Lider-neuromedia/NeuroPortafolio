@@ -27,6 +27,25 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
+// const app = new Vue({
+//     el: '#app',
+// });
+
+document.addEventListener('DOMContentLoaded', function () {
+    configureInputFileChange();
 });
+
+function configureInputFileChange() {
+    if (!document.querySelector('.custom-file-input')) return;
+
+    let fileInputs = document.querySelectorAll('.custom-file-input');
+
+    fileInputs.forEach(function (fileInput) {
+        fileInput.addEventListener('change', function (e) {
+            let fileName = e.target.files[0].name;
+            let nextSibling = e.target.nextElementSibling;
+            nextSibling.innerText = fileName;
+        });
+    });
+
+}

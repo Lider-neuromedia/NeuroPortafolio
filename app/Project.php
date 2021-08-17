@@ -31,6 +31,11 @@ class Project extends Model
         $logo = $this->assets()
             ->where('type', ProjectAsset::LOGO_ASSET)
             ->first();
+
+        if (!$logo) {
+            return null;
+        }
+
         $logo->url = url("storage/projects/{$logo->path}");
         return $logo;
     }
@@ -56,5 +61,28 @@ class Project extends Model
                 return $i;
             });
         return $images;
+    }
+
+    private function saveAsset(String $type, String $path)
+    {
+        $this->assets()->save(new ProjectAsset([
+            'type' => $type,
+            'path' => $path,
+        ]));
+    }
+
+    public function saveImage(String $path)
+    {
+        $this->saveAsset(ProjectAsset::IMAGE_ASSET, $path);
+    }
+
+    public function saveLogo(String $path)
+    {
+        $this->saveAsset(ProjectAsset::LOGO_ASSET, $path);
+    }
+
+    public function saveVideo(String $path)
+    {
+        $this->saveAsset(ProjectAsset::VIDEO_ASSET, $path);
     }
 }

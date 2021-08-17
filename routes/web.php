@@ -22,7 +22,5 @@ Route::get('showcase/{link}', 'ProjectsController@index');
 Route::get('project/{project}', 'ProjectsController@show');
 
 Route::prefix('admin')->middleware('auth')->group(function () {
-
-    Route::resource('projects', 'Admin\ProjectsController');
-
+    Route::resource('projects', 'Admin\ProjectsController', ['except' => ['show']]);
 });

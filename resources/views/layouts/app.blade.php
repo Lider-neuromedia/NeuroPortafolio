@@ -21,7 +21,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -61,6 +61,10 @@
                                         Portafolio
                                     </a>
 
+                                    <a class="dropdown-item" href="{{ route('projects.create') }}">
+                                        Crear Proyecto
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -79,7 +83,39 @@
         </nav>
 
         <main class="py-4">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        @if (session('message'))
+                            <div class="alert alert-info">
+                                {{ session('message') }}
+                            </div>
+                        @endif
+
+                        @if (session('message-danger'))
+                            <div class="alert alert-danger">
+                                {{ session('message-danger') }}
+                            </div>
+                        @endif
+
+                    </div>
+                </div>
+            </div>
+
             @yield('content')
+
         </main>
     </div>
 </body>

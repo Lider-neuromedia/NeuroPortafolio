@@ -17,14 +17,20 @@
         <div class="row">
             @foreach ($projects as $project)
 
-                <div class="col-4">
+                <div class="col-12 col-sm-6 col-lg-4 mb-4">
                     <div class="card">
-                        <img class="card-img-top" src="{{ $project->images->first()->url }}" alt="{{ $project->title }}">
+                        @if ($project->images->first())
+                            <img
+                                class="card-img-top"
+                                src="{{ $project->images->first()->url }}"
+                                alt="{{ $project->title }}">
+                        @endif
+
                         <div class="card-header text-center">{{ $project->title }}</div>
                         <div class="card-body">
                             <div class="d-flex justify-content-center" style="gap: 1rem;">
                                 <a class="btn btn-outline-primary" href="{{ url('project/' . $project->id) }}" role="button">Ver</a>
-                                <a class="btn btn-outline-success" href="#" role="button">Editar</a>
+                                <a class="btn btn-outline-success" href="{{ route('projects.edit', $project) }}" role="button">Editar</a>
                             </div>
                         </div>
                     </div>

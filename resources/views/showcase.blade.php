@@ -6,7 +6,7 @@
         <div class="row">
             @foreach ($link->projects as $project)
 
-                <div class="col-4">
+                <div class="col-12 col-sm-6 col-lg-4 mb-4">
                     <div class="card">
                         <img class="card-img-top" src="{{ $project->images->first()->url }}" alt="{{ $project->title }}">
                         <div class="card-header text-center">{{ $project->title }}</div>
