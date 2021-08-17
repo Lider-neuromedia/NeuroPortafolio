@@ -7,8 +7,16 @@
             <div class="col-12 col-md-8">
 
                 <form class="d-flex">
-                    <input class="flex-grow-1 form-control mr-sm-2" type="search" placeholder="Buscar proyectos" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <select class="form-control" name="c" id="c">
+                        <option value="">Todo</option>
+                        @foreach ($categories as $cat)
+                            <option value="{{ $cat->id }}" @if ($category == $cat->id) selected @endif>
+                                {{ $cat->name }} ({{ $cat->count_projects }})
+                            </option>
+                        @endforeach
+                    </select>
+                    <input class="flex-grow-1 form-control mx-2" type="search" name="s" value="{{$search}}" placeholder="Buscar proyectos" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
 
             </div>
@@ -37,6 +45,13 @@
                 </div>
 
             @endforeach
+
+        </div>
+
+        <div class="row justify-content-center mt-3 mb-5">
+            <div class="col-auto text-center">
+                {{ $projects->appends([ 's' => $search, 'c' => $category ])->links() }}
+            </div>
         </div>
 
     </div>

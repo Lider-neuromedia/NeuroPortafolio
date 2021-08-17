@@ -62,7 +62,10 @@ class DatabaseSeeder extends Seeder
         }
 
         foreach ($categories as $category) {
-            Category::create(['name' => $category]);
+            Category::create([
+                'name' => $category,
+                'slug' => \Str::slug($category),
+            ]);
         }
     }
 
@@ -92,7 +95,7 @@ class DatabaseSeeder extends Seeder
 
         $faker = Factory::create();
 
-        for ($i = 1; $i <= 50; $i++) {
+        for ($i = 1; $i <= 100; $i++) {
             $categories = Category::query()
                 ->inRandomOrder()
                 ->take($faker->numberBetween(1, 3))

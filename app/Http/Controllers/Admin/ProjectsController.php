@@ -14,10 +14,27 @@ class ProjectsController extends Controller
     const VIDEOS_COUNT = 3;
     const IMAGES_COUNT = 5;
 
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::all();
-        return view('admin.projects.index', compact('projects'));
+        $search = $request->get('s') ?: "";
+        $category = $request->get('c') ?: "";
+        $categories = Category::orderBy('name', 'asc')->get()->map(function ($c) {
+            $c->count_projects = $c->projects()->count();
+            return $c;
+        });
+
+        $projects = Project::query()
+            ->when($search, function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%")->orWhere('description', 'like', "%$search%");
+            })
+            ->when($category, function ($q) use ($category) {
+                $q->whereHas('categories', function ($q) use ($category) {
+                    $q->where('categories.id', $category);
+                });
+            })
+            ->paginate(9);
+
+        return view('admin.projects.index', compact('projects', 'categories', 'search', 'category'));
     }
 
     public function create()
