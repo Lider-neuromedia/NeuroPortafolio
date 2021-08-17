@@ -4,7 +4,7 @@
     <div class="container">
 
         <div class="row">
-            @foreach ($link->projects as $project)
+            @foreach ($result->projects as $project)
 
                 <div class="col-12 col-sm-6 col-lg-4 mb-4">
                     <div class="card">
