@@ -18,7 +18,10 @@
 
     <!-- Styles -->
     <script src="https://use.fontawesome.com/eb01d11666.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @yield('styles')
 </head>
 <body>
     <div>

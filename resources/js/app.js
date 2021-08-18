@@ -33,6 +33,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 document.addEventListener('DOMContentLoaded', function () {
     configureInputFileChange();
+    configureToggleDetailLinks();
 });
 
 function configureInputFileChange() {
@@ -47,5 +48,21 @@ function configureInputFileChange() {
             nextSibling.innerText = fileName;
         });
     });
+}
 
+function configureToggleDetailLinks() {
+    if (!document.querySelector('.toggle-link-detail-btn')) return;
+
+    const btns = document.querySelectorAll('.toggle-link-detail-btn');
+
+    btns.forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+
+
+            const detailId = e.target.dataset.detail;
+            const linkDetailElement = document.getElementById(detailId);
+            linkDetailElement.classList.toggle("detail-hidden");
+
+        });
+    });
 }

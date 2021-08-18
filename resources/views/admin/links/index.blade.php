@@ -1,5 +1,17 @@
 @extends('layouts.app')
 
+@section('styles')
+
+    <style>
+
+        .detail-hidden {
+            display: none;
+        }
+
+    </style>
+
+@endsection
+
 @section('content')
     <div class="container">
 
@@ -24,8 +36,10 @@
                                         {{ url("showcase/{$link->slug}") }}
                                     </a>
                                 </td>
-                                <td class="text-center">{{ $link->projects()->count() }}</td>
                                 <td class="text-center">
+                                    {{ $link->projects()->count() }}
+                                </td>
+                                <td class="text-center d-flex justify-content-center" style="gap: 1rem;">
 
                                     <form action="{{ route('links.destroy', $link->id) }}" method="POST">
                                         @method("DELETE")
@@ -33,6 +47,23 @@
                                         <input class="btn btn-danger btn-sm" type="submit" value="Borrar">
                                     </form>
 
+                                    <button
+                                        type="button"
+                                        data-detail="link-detail-{{ $link->id }}"
+                                        class="toggle-link-detail-btn btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-arrow-down-circle-fill" data-detail="link-detail-{{ $link->id }}"></i>
+                                    </button>
+
+                                </td>
+                            </tr>
+
+                            <tr class="detail-hidden" id="link-detail-{{ $link->id }}">
+                                <td colspan="3">
+                                    <ul class="list-group">
+                                        @foreach ($link->projects as $project)
+                                            <li class="list-group-item">{{$project->title}}</li>
+                                        @endforeach
+                                    </ul>
                                 </td>
                             </tr>
 
@@ -40,7 +71,6 @@
 
                     </tbody>
                 </table>
-
 
             </div>
         </div>
