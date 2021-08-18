@@ -83,7 +83,9 @@ class ProjectsController extends Controller
 
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        session()->flash('message', "Registro borrado.");
+        return redirect()->action('Admin\ProjectsController@index');
     }
 
     private function saveOrUpdate(Request $request, Project $project = null)
