@@ -55,7 +55,7 @@ class ProjectsController extends Controller
     public function create()
     {
         $project = new Project();
-        $categories = Category::all();
+        $categories = Category::orderBy('name', 'asc')->get();
         return view('admin.projects.create', compact('project', 'categories'))->with([
             'videos_count' => self::VIDEOS_COUNT,
             'images_count' => self::IMAGES_COUNT,
@@ -69,7 +69,7 @@ class ProjectsController extends Controller
 
     public function edit(Project $project)
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('name', 'asc')->get();
         return view('admin.projects.edit', compact('project', 'categories'))->with([
             'videos_count' => self::VIDEOS_COUNT,
             'images_count' => self::IMAGES_COUNT,
@@ -146,7 +146,6 @@ class ProjectsController extends Controller
             \DB::commit();
 
             session()->flash('message', "Registro guardado correctamente.");
-
             return redirect()->action('Admin\ProjectsController@edit', $project->id);
 
         } catch (\Exception $ex) {

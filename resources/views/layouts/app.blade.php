@@ -59,22 +59,15 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-                                    <a class="dropdown-item" href="{{ route('projects.index') }}">
-                                        Portafolio
-                                    </a>
-
-                                    <a class="dropdown-item" href="{{ route('links.index') }}">
-                                        Enlaces
-                                    </a>
-
-                                    <a class="dropdown-item" href="{{ route('projects.create') }}">
-                                        Crear Proyecto
-                                    </a>
-
-                                    <a class="dropdown-item" href="{{ route('projects.index') }}?create-link=1">
-                                        Crear Enlace
-                                    </a>
+                                    <a class="dropdown-item" href="{{ route('projects.index') }}">Portafolio</a>
+                                    <a class="dropdown-item" href="{{ route('projects.create') }}">Crear Proyecto</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('projects.index') }}?create-link=1">Crear Enlace</a>
+                                    <a class="dropdown-item" href="{{ route('links.index') }}">Enlaces</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('categories.index') }}">Categorías</a>
+                                    <a class="dropdown-item" href="{{ route('categories.create') }}">Crear Categoría</a>
+                                    <div class="dropdown-divider"></div>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
