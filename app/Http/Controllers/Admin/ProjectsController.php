@@ -37,7 +37,10 @@ class ProjectsController extends Controller
 
         $projects = Project::query()
             ->when($search, function ($q) use ($search) {
-                $q->where('title', 'like', "%$search%")->orWhere('description', 'like', "%$search%");
+                $q->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%$search%")
+                        ->orWhere('description', 'like', "%$search%");
+                });
             })
             ->when($category, function ($q) use ($category) {
                 $q->whereHas('categories', function ($q) use ($category) {
