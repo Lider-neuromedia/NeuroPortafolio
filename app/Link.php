@@ -25,9 +25,4 @@ class Link extends Model
 
         return $slug;
     }
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
 }

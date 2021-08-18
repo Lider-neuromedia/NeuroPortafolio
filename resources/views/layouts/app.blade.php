@@ -61,6 +61,10 @@
                                         Portafolio
                                     </a>
 
+                                    <a class="dropdown-item" href="{{ route('links.index') }}">
+                                        Enlaces
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('projects.create') }}">
                                         Crear Proyecto
                                     </a>
