@@ -126,7 +126,7 @@ class DatabaseSeeder extends Seeder
         }
     }
 
-    public function getProjectLogo()
+    private function getProjectLogo()
     {
         $faker = Factory::create();
         $files = \Storage::files('public/projects');
@@ -141,7 +141,7 @@ class DatabaseSeeder extends Seeder
         ]);
     }
 
-    public function getProjectImages()
+    private function getProjectImages()
     {
         $list = [];
         $faker = Factory::create();
