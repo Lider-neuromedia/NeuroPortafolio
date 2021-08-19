@@ -11,6 +11,11 @@ class Category extends Model
         'slug',
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
     public function projects()
     {
         return $this->belongsToMany(Project::class);

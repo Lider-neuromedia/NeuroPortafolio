@@ -30,10 +30,13 @@ class ProjectsController extends Controller
 
         $search = $request->get('s') ?: "";
         $category = $request->get('c') ?: "";
-        $categories = Category::orderBy('name', 'asc')->get()->map(function ($c) {
-            $c->count_projects = $c->projects()->count();
-            return $c;
-        });
+        $categories = Category::query()
+            ->orderBy('name', 'asc')
+            ->get()
+            ->map(function ($c) {
+                $c->count_projects = $c->projects()->count();
+                return $c;
+            });
 
         $projects = Project::query()
             ->when($search, function ($q) use ($search) {
