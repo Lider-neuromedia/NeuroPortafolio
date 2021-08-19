@@ -10,7 +10,7 @@ class LinksController extends Controller
 {
     public function index()
     {
-        $links = Link::paginate(15);
+        $links = Link::orderBy('slug', 'asc')->paginate(15);
         return view('admin.links.index', compact('links'));
     }
 

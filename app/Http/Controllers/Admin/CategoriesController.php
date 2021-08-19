@@ -44,7 +44,7 @@ class CategoriesController extends Controller
     public function destroy(Category $category)
     {
         if ($category->projects()->count() > 0) {
-            session()->flash('message', "El registro no puede ser borrado.");
+            session()->flash('message-error', "El registro no puede ser borrado.");
             return redirect()->back();
         }
 
@@ -53,7 +53,7 @@ class CategoriesController extends Controller
         return redirect()->action('Admin\CategoriesController@index');
     }
 
-    public function saveOrUpdate(Request $request, Category $category = null)
+    private function saveOrUpdate(Request $request, Category $category = null)
     {
         try {
 

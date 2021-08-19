@@ -39,20 +39,20 @@
                                 <td class="text-center">
                                     {{ $link->projects()->count() }}
                                 </td>
-                                <td class="text-center d-flex justify-content-center" style="gap: 1rem;">
+                                <td class="text-center d-flex justify-content-between" style="gap: 1rem;">
+
+                                    <button
+                                        type="button"
+                                        data-detail="link-detail-{{ $link->id }}"
+                                        class="toggle-link-detail-btn btn btn-sm btn-outline-primary" title="Listado de proyectos">
+                                        <i class="bi bi-arrow-down-circle-fill" data-detail="link-detail-{{ $link->id }}"></i>
+                                    </button>
 
                                     <form action="{{ route('links.destroy', $link->id) }}" method="POST">
                                         @method("DELETE")
                                         @csrf
                                         <input class="btn btn-danger btn-sm" type="submit" value="Borrar">
                                     </form>
-
-                                    <button
-                                        type="button"
-                                        data-detail="link-detail-{{ $link->id }}"
-                                        class="toggle-link-detail-btn btn btn-sm btn-outline-primary">
-                                        <i class="bi bi-arrow-down-circle-fill" data-detail="link-detail-{{ $link->id }}"></i>
-                                    </button>
 
                                 </td>
                             </tr>
