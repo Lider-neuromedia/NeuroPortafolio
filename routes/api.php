@@ -15,7 +15,7 @@
 //     return $request->user();
 // });
 
-Route::prefix('showcase')->namespace('Api')->group(function () {
+Route::prefix('showcase')->namespace('Api')->middleware('custom-cors')->group(function () {
 
     Route::get('/', 'ShowcaseController@index');
     Route::get('/categories', 'ShowcaseController@categories');
