@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Project;
 
 class ShowcaseController extends Controller
 {
@@ -19,6 +20,7 @@ class ShowcaseController extends Controller
 
         $showcase = $showcase->map(function ($c) {
             $c->projects->map(function ($p) {
+                $p->url = url("api/showcase/projects/{$p->slug}");
                 $p->logo_url = $p->logo->url;
                 $p->images_urls = $p->images->map(function ($i) {
                     return $i->url;
@@ -56,6 +58,7 @@ class ShowcaseController extends Controller
             ->firstOrFail();
 
         $category->projects->map(function ($p) {
+            $p->url = url("api/showcase/projects/{$p->slug}");
             $p->logo_url = $p->logo->url;
             $p->images_urls = $p->images->map(function ($i) {
                 return $i->url;
@@ -68,5 +71,18 @@ class ShowcaseController extends Controller
         });
 
         return response()->json($category, 200);
+    }
+
+    public function project(String $slug)
+    {
+        $project = Project::whereSlug($slug)->firstOrFail();
+        $project->logo_url = $project->logo->url;
+        $project->images_urls = $project->images->map(function ($i) {
+            return $i->url;
+        });
+        $project->videos_urls = $project->videos->map(function ($v) {
+            return $v->url;
+        });
+        return response()->json($project, 200);
     }
 }

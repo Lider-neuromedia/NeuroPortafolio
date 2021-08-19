@@ -39,6 +39,7 @@ class ProjectsController extends Controller
             });
 
         $projects = Project::query()
+            ->orderBy('title', 'asc')
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($q) use ($search) {
                     $q->where('title', 'like', "%$search%")
@@ -98,6 +99,7 @@ class ProjectsController extends Controller
             \DB::beginTransaction();
 
             $data = $request->only('title', 'description');
+            $data['slug'] = \Str::slug($request->get('title'));
 
             if ($project != null) {
                 $project->update($data);
@@ -127,7 +129,6 @@ class ProjectsController extends Controller
             }
 
             // Imagenes
-
             if ($request->hasFile('images')) {
                 $current_images = $request->get('current_images');
 

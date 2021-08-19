@@ -20,5 +20,6 @@ Route::prefix('showcase')->namespace('Api')->group(function () {
     Route::get('/', 'ShowcaseController@index');
     Route::get('/categories', 'ShowcaseController@categories');
     Route::get('/categories/{slug}', 'ShowcaseController@category');
+    Route::get('/projects/{slug}', 'ShowcaseController@project');
 
 });

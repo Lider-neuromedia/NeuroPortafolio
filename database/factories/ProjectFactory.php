@@ -6,8 +6,10 @@ use App\Project;
 use Faker\Generator as Faker;
 
 $factory->define(Project::class, function (Faker $faker) {
+    $title = $faker->catchPhrase;
     return [
-        'title' => $faker->catchPhrase,
+        'title' => $title,
+        'slug' => \Str::slug($title),
         'description' => $faker->text(300),
     ];
 });

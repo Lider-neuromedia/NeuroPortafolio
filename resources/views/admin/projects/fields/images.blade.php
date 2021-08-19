@@ -28,7 +28,7 @@
             <div class="form-group @error('images') has-error has-feedback @enderror">
                 <label class="form-label" for="images[{{$j}}]">
                     @if($is_required)*@endif
-                    Imagen {{ $j + 1 }}
+                    Imagen {{ $j + 1 }} <small>(400px x 400px mínimo)</small>
                 </label>
 
                 <div class="custom-file {{$class_validation}}">

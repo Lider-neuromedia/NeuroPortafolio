@@ -22,8 +22,9 @@ class ProjectsController extends Controller
         return view('showcase', compact('result'));
     }
 
-    public function show(Project $project)
+    public function show(String $project)
     {
+        $project = Project::whereSlug($project)->firstOrFail();
         return view('project', compact('project'));
     }
 }

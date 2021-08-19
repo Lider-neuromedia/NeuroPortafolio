@@ -65,7 +65,8 @@
                                 <div class="d-flex justify-content-center" style="gap: 1rem;">
                                     <a
                                         class="btn btn-outline-primary"
-                                        href="{{ url('project/' . $project->id) }}"
+                                        href="{{ url('project/' . $project->slug) }}"
+                                        target="_blank"
                                         role="button">
                                         Ver</a>
                                     <a
