@@ -87,7 +87,7 @@
         </div>
 
         <div class="row justify-content-center mt-3 mb-5">
-            <div class="col-auto text-center">
+            <div class="col-12 text-center">
 
                 @php
                     $appends = [ 's' => $search, 'c' => $category ];
@@ -99,7 +99,9 @@
                     }
                 @endphp
 
-                {{ $projects->appends($appends)->links() }}
+                <div class="table-responsive">
+                    {{ $projects->appends($appends)->links() }}
+                </div>
 
             </div>
         </div>

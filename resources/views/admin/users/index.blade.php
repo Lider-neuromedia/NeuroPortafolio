@@ -5,33 +5,34 @@
 
         <div class="row justify-content-center mb-5">
             <div class="col-12 col-md-8">
+                <div class="table-responsive">
 
-                <table class="table table-bordered">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @foreach ($users as $user)
-
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
                             <tr>
-                                <td>{{$user->name}}</td>
-                                <td>{{$user->email}}</td>
-                                <td class="text-right">
-                                    <a class="btn btn-success" href="{{ route("users.edit", $user->id) }}">Editar</a>
-                                </td>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th></th>
                             </tr>
+                        </thead>
+                        <tbody>
 
-                        @endforeach
+                            @foreach ($users as $user)
 
-                    </tbody>
-                </table>
+                                <tr>
+                                    <td>{{$user->name}}</td>
+                                    <td>{{$user->email}}</td>
+                                    <td class="text-right">
+                                        <a class="btn btn-success" href="{{ route("users.edit", $user->id) }}">Editar</a>
+                                    </td>
+                                </tr>
 
+                            @endforeach
 
+                        </tbody>
+                    </table>
+
+                </div>
             </div>
         </div>
 
