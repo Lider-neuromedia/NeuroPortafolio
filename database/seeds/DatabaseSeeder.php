@@ -1,9 +1,14 @@
 <?php
 
+use App\Answer;
+use App\Brief;
 use App\Category;
+use App\Client;
+use App\ClientBrief;
 use App\Link;
 use App\Project;
 use App\ProjectAsset;
+use App\Question;
 use App\User;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
@@ -19,9 +24,14 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         $this->seedUsers();
+
+        // Portafolio
         $this->seedCategories();
         $this->seedTestProjects();
         $this->seedLinks();
+
+        // Brief
+        $this->seedBriefs();
     }
 
     public function seedUsers()
@@ -95,7 +105,7 @@ class DatabaseSeeder extends Seeder
 
         $faker = Factory::create();
 
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 30; $i++) {
             $categories = Category::query()
                 ->inRandomOrder()
                 ->take($faker->numberBetween(1, 3))
@@ -128,7 +138,6 @@ class DatabaseSeeder extends Seeder
 
     private function getProjectLogo()
     {
-        $faker = Factory::create();
         $files = \Storage::files('public/projects');
         $files = collect($files)->filter(function ($file, $key) {
             $filename = array_reverse(explode('/', $file))[0];
@@ -170,7 +179,7 @@ class DatabaseSeeder extends Seeder
 
         $faker = Factory::create();
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             $projects = Project::query()
                 ->inRandomOrder()
                 ->take($faker->numberBetween(2, 10))
@@ -185,5 +194,83 @@ class DatabaseSeeder extends Seeder
             $link->save();
             $link->projects()->sync($projects);
         }
+    }
+
+    // Brief
+
+    public function seedBriefs()
+    {
+        if (Brief::count() > 0) {
+            return;
+        }
+
+        $faker = Factory::create();
+
+        $client1 = Client::create(['name' => 'Centelsa']);
+        $client2 = Client::create(['name' => 'Gane']);
+        $client3 = Client::create(['name' => 'Montana']);
+
+        $brief = Brief::create(['name' => 'Marketing']);
+
+        $brief->questions()->saveMany([
+            $this->openQuestion('¿Cúal es la respuesta a esta pregunta?'),
+            $this->seleccionQuestion('¿Cúales de estas son frutas?', ['Tomate', 'Aguacate', 'Manzana', 'Mango', 'Naranja'], true),
+            $this->seleccionQuestion('¿Cúantas horas han pasado?', ['Cinco horas', 'Diez horas', 'Cuatro horas'], false),
+            $this->openQuestion('¿Por qué hay otra pregunta?'),
+            $this->seleccionQuestion('¿Cúales de estos son colores calidos?', ['Azul', 'Rojo', 'Amarrillo', 'Verde'], true),
+            $this->seleccionQuestion('¿Cúantos continentes hay?', ["Cinco", "Siete"], false),
+        ]);
+
+        $client_brief = new ClientBrief([
+            'status' => ClientBrief::STATUS_PENDING,
+            'slug' => \Str::slug(\Str::random(64)),
+        ]);
+        $client_brief->client()->associate($client1);
+        $client_brief->brief()->associate($brief);
+        $client_brief->save();
+
+        foreach ($brief->questions as $question) {
+            $asw = [""];
+
+            if ($question->isOpen()) {
+                $asw = [
+                    "Respuesta aleatoria " . \Str::random(64),
+                ];
+            } else if ($question->isMultipleSelection()) {
+                $asw = array_unique([
+                    $question->options[$faker->numberBetween(0, count($question->options) - 1)],
+                    $question->options[$faker->numberBetween(0, count($question->options) - 1)],
+                ]);
+            } else if ($question->isUniqueSelection()) {
+                $asw = [
+                    $question->options[$faker->numberBetween(0, count($question->options) - 1)],
+                ];
+            }
+
+            $answer = new Answer([
+                'question' => $question->question,
+                'answer' => $asw,
+            ]);
+            $answer->clientBrief()->associate($client_brief);
+            $answer->question()->associate($question);
+            $answer->save();
+        }
+    }
+
+    private function openQuestion($question)
+    {
+        return new Question([
+            'question' => $question,
+            'type' => Question::QUESTION_OPEN,
+        ]);
+    }
+
+    private function seleccionQuestion($question, $options, $is_multiple)
+    {
+        return new Question([
+            'question' => $question,
+            'type' => $is_multiple ? Question::QUESTION_MULTIPLE : Question::QUESTION_UNIQUE,
+            'options' => $options,
+        ]);
     }
 }
