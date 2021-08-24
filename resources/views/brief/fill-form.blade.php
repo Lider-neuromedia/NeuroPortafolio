@@ -32,7 +32,7 @@
                 <label class="form-label font-weight-bold" for="{{$question->tag_id}}">{{$question->question}}</label>
 
                 @foreach ($question->options as $key => $option)
-                    <div class="form-check">
+                    <div class="form-check @error($question->tag_id) is-invalid @enderror">
                         <label class="form-check-label">
                             <input
                                 @if (in_array($option, $question->answer)) checked @endif
@@ -60,7 +60,7 @@
                 <label class="form-label font-weight-bold" for="{{$question->tag_id}}">{{$question->question}}</label>
 
                 @foreach ($question->options as $key => $option)
-                    <div class="form-check">
+                    <div class="form-check @error($question->tag_id) is-invalid @enderror">
                         <label class="form-check-label">
                             <input
                                 @if (in_array($option, $question->answer)) checked @endif
