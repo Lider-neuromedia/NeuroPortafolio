@@ -19,4 +19,9 @@ class Brief extends Model
     {
         return $this->hasMany(Question::class);
     }
+
+    public function clientsAssigned()
+    {
+        return $this->hasMany(ClientBrief::class);
+    }
 }

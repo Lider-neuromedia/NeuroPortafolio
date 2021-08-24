@@ -22,7 +22,7 @@ Route::get('showcase/{link}', 'ProjectsController@index');
 Route::get('project/{project}', 'ProjectsController@show');
 
 Route::get('brief/{slug}', 'BriefController@brief')->name('brief.fill');
-Route::post('brief/{slug}', 'BriefController@store')->name('brief.store');
+Route::post('brief/{slug}', 'BriefController@store')->name('brief.save');
 Route::post('brief/{slug}/complete', 'BriefController@complete')->name('brief.complete');
 
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function () {
@@ -32,6 +32,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     Route::resource('projects', 'ProjectsController', ['except' => ['show']]);
     Route::resource('categories', 'CategoriesController', ['except' => ['show']]);
     Route::resource('links', 'LinksController', ['only' => ['index', 'destroy']]);
+    Route::resource('brief', 'BriefController', ['except' => ['show']]);
 
     Route::prefix('create-link')->group(function () {
 

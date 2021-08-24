@@ -6,7 +6,7 @@
         <div class="row justify-content-center mb-5">
             <div class="col-12 col-md-8">
 
-                <h1>{{ $content->brief->name }}</h1>
+                <h1>{{ $content->client->name }} / {{ $content->brief->name }}</h1>
 
                 <hr>
 

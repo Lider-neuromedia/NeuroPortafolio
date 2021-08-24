@@ -1,4 +1,4 @@
-<form action="{{ route('brief.store', $content->slug) }}" method="POST">
+<form action="{{ route('brief.save', $content->slug) }}" method="POST">
     @csrf
 
     @foreach ($questions as $question)
