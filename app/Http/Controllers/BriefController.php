@@ -68,9 +68,10 @@ class BriefController extends Controller
 
             foreach ($content->brief->questions as $question) {
                 if ($request->has($question->tag_id) && $request->get($question->tag_id) !== null) {
+                    $answer_data = $request->get($question->tag_id);
                     $answer = new Answer([
                         'question' => $question->question,
-                        'answer' => $request->get($question->tag_id),
+                        'answer' => $question->isOpen() ? [$answer_data] : $answer_data,
                     ]);
                     $answer->clientBrief()->associate($content);
                     $answer->question()->associate($question);
