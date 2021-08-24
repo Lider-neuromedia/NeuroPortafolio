@@ -1,10 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
     <div class="container">
 
+        <h1>Usuarios</h1>
+        <hr>
+
         <div class="row justify-content-center mb-5">
-            <div class="col-12 col-md-8">
+            <div class="col-12">
                 <div class="table-responsive">
 
                     <table class="table table-bordered">
