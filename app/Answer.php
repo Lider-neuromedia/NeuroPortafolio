@@ -15,6 +15,11 @@ class Answer extends Model
         'answer' => 'array',
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
     public function clientBrief()
     {
         return $this->belongsTo(ClientBrief::class);

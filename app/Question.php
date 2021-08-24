@@ -16,6 +16,11 @@ class Question extends Model
         'options',
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
     protected $casts = [
         'options' => 'array',
     ];
@@ -38,5 +43,10 @@ class Question extends Model
     public function isUniqueSelection()
     {
         return $this->type == self::QUESTION_UNIQUE;
+    }
+
+    public function getTagIdAttribute()
+    {
+        return \Str::slug($this->type) . "-" . $this->id;
     }
 }

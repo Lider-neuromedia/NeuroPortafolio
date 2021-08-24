@@ -10,6 +10,11 @@ class Client extends Model
         'name',
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
     public function questions()
     {
         return $this->hasMany(Question::class);

@@ -21,6 +21,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('showcase/{link}', 'ProjectsController@index');
 Route::get('project/{project}', 'ProjectsController@show');
 
+Route::get('brief/{slug}', 'BriefController@brief')->name('brief.fill');
+Route::post('brief/{slug}', 'BriefController@store')->name('brief.store');
+Route::post('brief/{slug}/complete', 'BriefController@complete')->name('brief.complete');
+
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function () {
 
     Route::resource('users', 'UsersController', ['except' => ['show']]);
