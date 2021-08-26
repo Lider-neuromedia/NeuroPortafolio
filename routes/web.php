@@ -33,6 +33,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     Route::resource('categories', 'CategoriesController', ['except' => ['show']]);
     Route::resource('links', 'LinksController', ['only' => ['index', 'destroy']]);
     Route::resource('brief', 'BriefController', ['except' => ['show']]);
+    Route::resource('clients', 'ClientsController', ['except' => ['show']]);
 
     Route::prefix('create-link')->group(function () {
 

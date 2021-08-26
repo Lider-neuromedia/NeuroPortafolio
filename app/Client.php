@@ -19,4 +19,9 @@ class Client extends Model
     {
         return $this->hasMany(Question::class);
     }
+
+    public function briefs()
+    {
+        return $this->hasMany(ClientBrief::class);
+    }
 }
