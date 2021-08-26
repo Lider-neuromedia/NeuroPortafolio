@@ -13,6 +13,7 @@ class BriefController extends Controller
     {
         $content = ClientBrief::query()
             ->whereSlug($slug)
+            ->whereHas('brief')
             ->with('client', 'brief', 'brief.questions', 'answers', 'answers.question')
             ->firstOrFail();
 

@@ -51,7 +51,9 @@ class BriefController extends Controller
 
     public function destroy(Brief $brief)
     {
-        //
+        $brief->delete();
+        session()->flash('message', "Registro borrado.");
+        return redirect()->action('Admin\BriefController@index');
     }
 
     private function saveOrUpdate(Request $request, Brief $brief = null)
