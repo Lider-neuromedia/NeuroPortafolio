@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Question;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BriefRequest extends FormRequest
@@ -23,8 +24,17 @@ class BriefRequest extends FormRequest
      */
     public function rules()
     {
+        $types = implode(",", collect(Question::types())->pluck('id')->toArray());
+        $id = $this->get('id');
+
         return [
-            //
+            'name' => ['required', 'string', 'max:200', "unique:briefs,name,$id"],
+            'questions' => ['required', 'array', 'min:1'],
+            'questions.*.id' => ['nullable', 'integer', 'exists:questions,id'],
+            'questions.*.question' => ['required', 'string', 'max:250'],
+            'questions.*.type' => ['required', "in:$types"],
+            'questions.*.options' => ['nullable', 'array', 'min:1'],
+            'questions.*.options.*' => ['required', 'string', 'max:250'],
         ];
     }
 }

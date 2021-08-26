@@ -14,6 +14,8 @@ class Question extends Model
         'type',
         'question',
         'options',
+        'created_at',
+        'updated_at',
     ];
 
     protected $hidden = [
@@ -48,5 +50,14 @@ class Question extends Model
     public function getTagIdAttribute()
     {
         return \Str::slug($this->type) . "-" . $this->id;
+    }
+
+    public static function types()
+    {
+        return [
+            (Object) ['id' => self::QUESTION_OPEN, 'name' => 'Pregunta abierta'],
+            (Object) ['id' => self::QUESTION_MULTIPLE, 'name' => 'Pregunta de selección múltiple'],
+            (Object) ['id' => self::QUESTION_UNIQUE, 'name' => 'Pregunta de selección única'],
+        ];
     }
 }

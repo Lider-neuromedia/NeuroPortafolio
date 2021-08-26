@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('styles')
+@section('scripts')
 
     <style>
 

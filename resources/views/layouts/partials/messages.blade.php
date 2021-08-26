@@ -17,9 +17,9 @@
             </div>
         @endif
 
-        @if (session('message-danger'))
+        @if (session('message-error'))
             <div class="alert alert-danger">
-                {{ session('message-danger') }}
+                {{ session('message-error') }}
             </div>
         @endif
 
