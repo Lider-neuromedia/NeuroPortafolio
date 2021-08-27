@@ -49875,10 +49875,26 @@ var projectFormApp = new Vue({
   name: "ProjectForm",
   data: function data() {
     return {
-      videos: window.videos || []
+      videos: window.videos || [],
+      images: window.images || [],
+      newImages: []
     };
   },
   methods: {
+    addImage: function addImage() {
+      this.newImages.push("");
+    },
+    removeImage: function removeImage() {
+      this.newImages.splice(this.newImages.length - 1, 1);
+    },
+    removeCurrentImage: function removeCurrentImage(index) {
+      this.images.splice(index, 1);
+    },
+    changeFile: function changeFile(e) {
+      var fileName = e.target.files[0].name;
+      var nextSibling = e.target.nextElementSibling;
+      nextSibling.innerText = fileName;
+    },
     addVideo: function addVideo() {
       this.videos.push({
         path: ""
@@ -49893,8 +49909,14 @@ var projectFormApp = new Vue({
       var hasEmptyVideos = this.videos.filter(function (x) {
         return x.path.trim() == '';
       }).length > 0;
+      var hasNewImages = this.newImages.length > 0;
+      var hasCurrentImages = this.images.length > 0;
 
       if (hasEmptyVideos) {
+        return false;
+      }
+
+      if (!hasNewImages && !hasCurrentImages) {
         return false;
       }
 

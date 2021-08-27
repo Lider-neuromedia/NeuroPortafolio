@@ -40,6 +40,8 @@
 @section('scripts')
     <script>
         window.videos = @json($videos);
+        window.images = @json($project->images);
+
         @if (old('videos'))
             window.videos = @json(old('videos'));
             window.videos = window.videos.map(function(video) {

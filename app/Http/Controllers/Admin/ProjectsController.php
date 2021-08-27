@@ -75,6 +75,7 @@ class ProjectsController extends Controller
     public function edit(Project $project)
     {
         $categories = Category::orderBy('name', 'asc')->get();
+        $project->images;
         $videos = $project->videos->map(function ($video) {
             return (Object) [
                 'path' => $video->path,
@@ -137,21 +138,20 @@ class ProjectsController extends Controller
             }
 
             // Imagenes
-            if ($request->hasFile('images')) {
-                $current_images = $request->get('current_images');
+            $project->assets()->where('type', ProjectAsset::IMAGE_ASSET)->delete();
+            $current_images = $request->get('current_images') ?: [];
 
+            if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $key => $file) {
                     $image_path = $file->store('public/projects');
                     $image_path = array_reverse(explode('/', $image_path))[0];
-                    $current_images[$key] = $image_path;
+                    $current_images[] = $image_path;
                 }
+            }
 
-                $project->assets()->where('type', ProjectAsset::IMAGE_ASSET)->delete();
-
-                foreach ($current_images as $image_path) {
-                    if ($image_path != null) {
-                        $project->saveImage($image_path);
-                    }
+            foreach ($current_images as $image_path) {
+                if ($image_path != null) {
+                    $project->saveImage($image_path);
                 }
             }
 

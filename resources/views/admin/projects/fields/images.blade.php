@@ -1,68 +1,52 @@
-<div class="row">
-    @for ($j = 0; $j < $images_count; $j++)
+<div class="row mb-3">
 
-        <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6">
+        <label class="form-label d-flex justify-content-between align-middle">
+            <span>Imagenes <small>(400px x 400px mínimo)</small></span>
 
-            @php
-                $is_required = $project->id == null && $j == 0;
-                $current_image = isset($project->images[$j]) ? $project->images[$j]->url : "";
-                $current_image_path = isset($project->images[$j]) ? $project->images[$j]->path : "";
-                $old_video = isset(old('images')[$j]) ?: $current_image;
-                $class_validation = "";
-                $message_validation = "";
+            <div class="">
+                <button type="button" class="btn btn-dark btn-sm" title="Remover Imagen" @@click="removeImage" :disabled="newImages.length == 0">
+                    <i class="bi bi-dash-circle"></i>
+                </button>
+                <button type="button" class="btn btn-success btn-sm" title="Agregar Imagen" @@click="addImage">
+                    <i class="bi bi-plus-circle"></i>
+                </button>
+            </div>
+        </label>
 
-                foreach ($errors->get('images.*') as $key => $message) {
-                    if ($key === "images." . $j) {
-                        $class_validation = "is-invalid";
-                        $message_validation = $message[0];
-                    }
-                }
-            @endphp
-
-            <input
-                type="hidden"
-                name="current_images[{{$j}}]"
-                id="current_images[{{$j}}]"
-                value="{{ $current_image_path }}">
-
-            <div class="form-group @error('images') has-error has-feedback @enderror">
-                <label class="form-label" for="images[{{$j}}]">
-                    @if($is_required)*@endif
-                    Imagen {{ $j + 1 }} <small>(400px x 400px mínimo)</small>
+        <div v-for="(image, index) in newImages" :key="index" class="form-group @error('images.*') has-error has-feedback @enderror">
+            <div class="custom-file">
+                <input
+                    :name="`images[${index}]`"
+                    :id="`images[${index}]`"
+                    @@change="changeFile"
+                    type="file"
+                    class="custom-file-input"
+                    lang="es"
+                    required>
+                <label class="custom-file-label" :for="`images[${index}]`">
+                    Seleccionar imagen @{{ index + 1 }}
                 </label>
-
-                <div class="custom-file {{$class_validation}}">
-                    <input
-                        type="file"
-                        class="custom-file-input {{$class_validation}}"
-                        name="images[{{$j}}]"
-                        id="images[{{$j}}]"
-                        lang="es"
-                        @if($is_required) required @endif>
-                    <label class="custom-file-label" for="images[{{$j}}]">
-                        Seleccionar archivo
-                    </label>
-                </div>
-
-                @if ($message_validation)
-                    <span class="invalid-feedback" role="alert">
-                        {{$message_validation}}
-                    </span>
-                @endif
-
-                @if ($current_image)
-                    <div class="my-2">
-                        <img
-                            class="img-thumbnail"
-                            width="200px"
-                            height="auto"
-                            src="{{ $current_image }}"
-                            title="Imagen actual">
-                    </div>
-                @endif
             </div>
 
+            @error('images.*')
+                <span class="invalid-feedback" role="alert">
+                    {{$message}}
+                </span>
+            @enderror
         </div>
+    </div>
 
-    @endfor
+    <div class="col-12 col-md-6 d-flex justify-content-start align-items-start" style="gap: 1rem;">
+        <div v-for="(image, index) in images" :key="index" class="card" style="width: 170px;">
+            <input type="hidden" :name="`current_images[${index}]`" :value="image.path">
+            <img width="100%" height="auto" :src="image.url" class="card-img-top" alt="imagen">
+            <div class="card-body text-center">
+                <button type="button" class="btn btn-sm btn-danger" title="Borrar imagen" @@click="removeCurrentImage(index)">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
 </div>
