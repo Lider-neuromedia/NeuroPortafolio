@@ -60,7 +60,8 @@ class ProjectsController extends Controller
     {
         $project = new Project();
         $categories = Category::orderBy('name', 'asc')->get();
-        return view('admin.projects.create', compact('project', 'categories'))->with([
+        $videos = [];
+        return view('admin.projects.create', compact('project', 'categories', 'videos'))->with([
             'videos_count' => self::VIDEOS_COUNT,
             'images_count' => self::IMAGES_COUNT,
         ]);
@@ -74,8 +75,13 @@ class ProjectsController extends Controller
     public function edit(Project $project)
     {
         $categories = Category::orderBy('name', 'asc')->get();
-        return view('admin.projects.edit', compact('project', 'categories'))->with([
-            'videos_count' => self::VIDEOS_COUNT,
+        $videos = $project->videos->map(function ($video) {
+            return (Object) [
+                'path' => $video->path,
+            ];
+        });
+
+        return view('admin.projects.edit', compact('project', 'categories', 'videos'))->with([
             'images_count' => self::IMAGES_COUNT,
         ]);
     }
@@ -122,9 +128,11 @@ class ProjectsController extends Controller
             // Videos
             $project->assets()->where('type', ProjectAsset::VIDEO_ASSET)->delete();
 
-            foreach ($request->get('videos') as $video_path) {
-                if ($video_path != null) {
-                    $project->saveVideo($video_path);
+            if ($request->has('videos')) {
+                foreach ($request->get('videos') as $video_path) {
+                    if ($video_path != null) {
+                        $project->saveVideo($video_path);
+                    }
                 }
             }
 

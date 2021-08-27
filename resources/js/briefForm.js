@@ -1,5 +1,6 @@
 const briefFormApp = new Vue({
     el: '#brief-form-app',
+    name: "BriefForm",
     data() {
         return {
             brief: window.brief || null,

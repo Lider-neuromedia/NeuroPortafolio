@@ -65,3 +65,7 @@ function configureToggleDetailLinks() {
 if (document.getElementById('brief-form-app')) {
     require('./briefForm');
 }
+
+if (document.getElementById('project-form-app')) {
+    require('./projectForm');
+}

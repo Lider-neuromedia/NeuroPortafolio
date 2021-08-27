@@ -1,36 +1,31 @@
-@for ($i = 0; $i < $videos_count; $i++)
+<div class="form-group">
+    <label class="form-label d-flex justify-content-between align-middle">
+        <span>Videos <small>(url de youtube)</small></span>
+        <button type="button" class="btn btn-success btn-sm" title="Agregar Video" @@click="addVideo">
+            <i class="bi bi-plus-circle"></i>
+        </button>
+    </label>
 
-    @php
-        $current_video = isset($project->videos[$i]) ? $project->videos[$i]->path : "";
-        $old_video = isset(old('videos')[$i]) ? old('videos')[$i] : $current_video;
-        $class_validation = "";
-        $message_validation = "";
-
-        foreach ($errors->get('videos.*') as $key => $message) {
-            if ($key === "videos." . $i) {
-                $class_validation = "is-invalid";
-                $message_validation = $message[0];
-            }
-        }
-    @endphp
-
-    <div class="form-group @error('videos.*') is-invalid @enderror">
-        <label class="form-label" for="videos[{{$i}}]">
-            Video {{$i + 1}} <small>(url de youtube)</small>
-        </label>
-
+    <div v-for="(video, index) in videos" :key="index" class="d-flex justify-content-between my-1 @error('videos.*') is-invalid @enderror">
         <input
-            class="form-control {{$class_validation}}"
-            type="text"
-            name="videos[{{$i}}]"
-            id="videos[{{$i}}]"
-            value="{{$old_video}}">
-
-        @if ($message_validation)
-            <span class="invalid-feedback" role="alert">
-                {{$message_validation}}
-            </span>
-        @endif
+            class="form-control" type="text"
+            :name="`videos[${index}]`"
+            :id="`videos[${index}]`"
+            v-model="video.path"
+            required>
+        <button type="button" class="btn btn-sm btn-dark ml-1" title="Borrar video" @@click="removeVideo(index)">
+            <i class="bi bi-x-circle"></i>
+        </button>
     </div>
 
-@endfor
+    @error('videos.*')
+        <span class="invalid-feedback" role="alert">
+            {{$message}}
+        </span>
+    @enderror
+
+    <div class="alert alert-secondary" v-if="videos.length == 0">
+        Sin Videos
+    </div>
+
+</div>

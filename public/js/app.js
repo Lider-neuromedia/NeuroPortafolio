@@ -49709,6 +49709,10 @@ if (document.getElementById('brief-form-app')) {
   __webpack_require__(/*! ./briefForm */ "./resources/js/briefForm.js");
 }
 
+if (document.getElementById('project-form-app')) {
+  __webpack_require__(/*! ./projectForm */ "./resources/js/projectForm.js");
+}
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -49766,6 +49770,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 var briefFormApp = new Vue({
   el: '#brief-form-app',
+  name: "BriefForm",
   data: function data() {
     return {
       brief: window.brief || null,
@@ -49852,6 +49857,48 @@ var briefFormApp = new Vue({
           }
         }
       }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/projectForm.js":
+/*!*************************************!*\
+  !*** ./resources/js/projectForm.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var projectFormApp = new Vue({
+  el: '#project-form-app',
+  name: "ProjectForm",
+  data: function data() {
+    return {
+      videos: window.videos || []
+    };
+  },
+  methods: {
+    addVideo: function addVideo() {
+      this.videos.push({
+        path: ""
+      });
+    },
+    removeVideo: function removeVideo(index) {
+      this.videos.splice(index, 1);
+    }
+  },
+  computed: {
+    canSave: function canSave() {
+      var hasEmptyVideos = this.videos.filter(function (x) {
+        return x.path.trim() == '';
+      }).length > 0;
+
+      if (hasEmptyVideos) {
+        return false;
+      }
+
+      return true;
     }
   }
 });

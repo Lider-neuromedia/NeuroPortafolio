@@ -19,3 +19,15 @@
 
     </div>
 @endsection
+
+@section('scripts')
+    <script>
+        window.videos = @json($videos);
+        @if (old('videos'))
+            window.videos = @json(old('videos'));
+            window.videos = window.videos.map(function(video) {
+                return {"path": video};
+            });
+        @endif
+    </script>
+@endsection
