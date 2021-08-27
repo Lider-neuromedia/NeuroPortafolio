@@ -47,4 +47,26 @@ class ClientBrief extends Model
     {
         return $this->status !== self::STATUS_COMPLETED;
     }
+
+    public function getStatusFormatAttribute()
+    {
+        $list = [
+            self::STATUS_PENDING => 'Pendiente',
+            self::STATUS_COMPLETED => 'Completado',
+        ];
+        return $list[$this->status];
+    }
+
+    public function getUrlAttribute()
+    {
+        return url("brief/{$this->slug}");
+    }
+
+    public static function statuses()
+    {
+        return [
+            (Object) ['id' => self::STATUS_PENDING, 'name' => 'Pendiente'],
+            (Object) ['id' => self::STATUS_COMPLETED, 'name' => 'Completado'],
+        ];
+    }
 }

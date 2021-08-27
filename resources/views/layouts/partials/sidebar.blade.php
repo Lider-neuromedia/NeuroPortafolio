@@ -23,11 +23,11 @@
         </h6>
 
         <ul class="nav flex-column mb-2">
+            <li class="nav-item"><a class="nav-link" href="{{ route('brief-assign.index') }}"><i class="bi bi-record-circle"></i> Brief Asignados</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('brief.index') }}"><i class="bi bi-record-circle"></i> Brief</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('brief.create') }}"><i class="bi bi-record-circle"></i> Crear Brief</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('clients.index') }}"><i class="bi bi-record-circle"></i> Clientes</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('clients.create') }}"><i class="bi bi-record-circle"></i> Crear Cliente</a></li>
-            {{-- <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-record-circle"></i> Brief Asignados</a></li> --}}
         </ul>
 
         <div class="dropdown-divider"></div>

@@ -34,6 +34,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     Route::resource('links', 'LinksController', ['only' => ['index', 'destroy']]);
     Route::resource('brief', 'BriefController', ['except' => ['show']]);
     Route::resource('clients', 'ClientsController', ['except' => ['show']]);
+    Route::resource('brief-assign', 'BriefAssignController', ['only' => ['index', 'show', 'store', 'destroy']]);
 
     Route::prefix('create-link')->group(function () {
 
