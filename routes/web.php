@@ -19,7 +19,7 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('showcase/{link}', 'ProjectsController@index');
-Route::get('project/{project}', 'ProjectsController@show');
+Route::get('showcase/{link}/{project}', 'ProjectsController@show');
 
 Route::get('brief/{slug}', 'BriefController@brief')->name('brief.fill');
 Route::post('brief/{slug}', 'BriefController@store')->name('brief.save');
@@ -28,7 +28,6 @@ Route::post('brief/{slug}/complete', 'BriefController@complete')->name('brief.co
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function () {
 
     Route::resource('users', 'UsersController', ['except' => ['show']]);
-
     Route::resource('projects', 'ProjectsController', ['except' => ['show']]);
     Route::resource('categories', 'CategoriesController', ['except' => ['show']]);
     Route::resource('links', 'LinksController', ['only' => ['index', 'destroy']]);

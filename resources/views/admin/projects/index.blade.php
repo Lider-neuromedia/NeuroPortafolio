@@ -62,16 +62,10 @@
 
                             @else
 
-                                <div class="d-flex justify-content-center" style="gap: 1rem;">
+                                <div class="text-center">
                                     <a
-                                        class="btn btn-outline-primary"
-                                        href="{{ url('project/' . $project->slug) }}"
-                                        target="_blank"
-                                        role="button">
-                                        Ver</a>
-                                    <a
-                                        class="btn btn-outline-success"
                                         href="{{ route('projects.edit', $project) }}"
+                                        class="btn btn-outline-success"
                                         role="button">
                                         Editar</a>
                                 </div>

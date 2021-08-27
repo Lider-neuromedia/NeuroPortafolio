@@ -11,7 +11,10 @@
                         <img class="card-img-top" src="{{ $project->images->first()->url }}" alt="{{ $project->title }}">
                         <div class="card-header text-center">{{ $project->title }}</div>
                         <div class="card-body text-center">
-                            <a class="btn btn-outline-primary" href="{{ url('project/' . $project->slug) }}" role="button">Ver</a>
+                            <a
+                                href="{{ url("showcase/{$result->slug}/{$project->slug}") }}"
+                                class="btn btn-outline-primary"
+                                role="button">Ver</a>
                         </div>
                     </div>
                 </div>
