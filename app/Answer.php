@@ -9,6 +9,8 @@ class Answer extends Model
     protected $fillable = [
         'question',
         'answer',
+        'created_at',
+        'updated_at',
     ];
 
     protected $casts = [

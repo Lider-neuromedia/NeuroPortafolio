@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Answer;
 use App\ClientBrief;
 use App\Http\Requests\FillBriefRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BriefController extends Controller
@@ -18,6 +19,8 @@ class BriefController extends Controller
             ->firstOrFail();
 
         $questions = collect([]);
+
+        $content->brief->questions = $content->brief->questions()->orderBy('created_at', 'asc')->get();
 
         foreach ($content->brief->questions as $question) {
             $data = [
@@ -66,13 +69,17 @@ class BriefController extends Controller
                 ->firstOrFail();
 
             $content->answers()->delete();
+            $current_date = Carbon::now();
+            $questions = $content->brief->questions()->orderBy('created_at', 'asc')->get();
 
-            foreach ($content->brief->questions as $question) {
+            foreach ($questions as $key => $question) {
                 if ($request->has($question->tag_id) && $request->get($question->tag_id) !== null) {
                     $answer_data = $request->get($question->tag_id);
                     $answer = new Answer([
                         'question' => $question->question,
                         'answer' => $question->isOpen() ? [$answer_data] : $answer_data,
+                        'created_at' => $current_date->setSeconds($key)->format('Y-m-d H:i:s'),
+                        'updated_at' => $current_date->setSeconds($key)->format('Y-m-d H:i:s'),
                     ]);
                     $answer->clientBrief()->associate($content);
                     $answer->question()->associate($question);
