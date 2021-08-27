@@ -1,4 +1,4 @@
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse bg-white">
     <div class="sidebar-sticky pt-3">
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -24,7 +24,7 @@
 
         <ul class="nav flex-column mb-2">
             <li class="nav-item"><a class="nav-link" href="{{ route('brief-assign.index') }}"><i class="bi bi-record-circle"></i> Brief Asignados</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('brief.index') }}"><i class="bi bi-record-circle"></i> Brief</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('brief.index') }}"><i class="bi bi-record-circle"></i> Briefs</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('brief.create') }}"><i class="bi bi-record-circle"></i> Crear Brief</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('clients.index') }}"><i class="bi bi-record-circle"></i> Clientes</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('clients.create') }}"><i class="bi bi-record-circle"></i> Crear Cliente</a></li>
