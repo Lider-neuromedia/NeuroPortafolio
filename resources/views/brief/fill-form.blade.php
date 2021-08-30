@@ -5,17 +5,36 @@
 
         @if ($question->isOpen)
 
-            {{-- Texto Simple --}}
+            {{-- Texto simple --}}
 
             <div class="form-group">
                 <label class="form-label font-weight-bold" for="{{$question->tag_id}}">{{$question->question}}</label>
                 <input
-                    maxlength="250"
                     class="form-control @error($question->tag_id) is-invalid @enderror"
                     value="{{ old($question->tag_id) ?: $question->answer[0] }}"
                     name="{{$question->tag_id}}"
                     id="{{$question->tag_id}}"
                     type="text">
+
+                @error($question->tag_id)
+                    <span class="invalid-feedback" role="alert">
+                        {{$message}}
+                    </span>
+                @enderror
+            </div>
+
+        @elseif($question->isOpenArea)
+
+            {{-- Area de texto --}}
+
+            <div class="form-group">
+                <label class="form-label font-weight-bold" for="{{$question->tag_id}}">{{$question->question}}</label>
+
+                <textarea
+                    class="form-control @error($question->tag_id) is-invalid @enderror"
+                    name="{{$question->tag_id}}"
+                    id="{{$question->tag_id}}"
+                    cols="30" rows="15">{{ old($question->tag_id) ?: $question->answer[0] }}</textarea>
 
                 @error($question->tag_id)
                     <span class="invalid-feedback" role="alert">

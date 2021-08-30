@@ -81,7 +81,7 @@ class BriefController extends Controller
                     $q = $brief->questions()->find($question['id']);
                     $q->update($question);
 
-                    if ($q->isOpen()) {
+                    if ($q->isOpen() || $q->isOpenArea()) {
                         $q->update(['options' => null]);
                     }
                 } else {

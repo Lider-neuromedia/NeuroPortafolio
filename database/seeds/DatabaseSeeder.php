@@ -214,6 +214,7 @@ class DatabaseSeeder extends Seeder
 
         $brief->questions()->saveMany([
             $this->openQuestion('¿Cúal es la respuesta a esta pregunta?'),
+            $this->openAreaQuestion('¿Cúal es la respuesta a esta pregunta larga?'),
             $this->seleccionQuestion('¿Cúales de estas son frutas?', ['Tomate', 'Aguacate', 'Manzana', 'Mango', 'Naranja'], true),
             $this->seleccionQuestion('¿Cúantas horas han pasado?', ['Cinco horas', 'Diez horas', 'Cuatro horas'], false),
             $this->openQuestion('¿Por qué hay otra pregunta?'),
@@ -232,9 +233,9 @@ class DatabaseSeeder extends Seeder
         foreach ($brief->questions as $question) {
             $asw = [""];
 
-            if ($question->isOpen()) {
+            if ($question->isOpen() || $question->isOpenArea()) {
                 $asw = [
-                    "Respuesta aleatoria " . \Str::random(64),
+                    "Respuesta aleatoria " . \Str::random(34) . " " . \Str::random(34),
                 ];
             } else if ($question->isMultipleSelection()) {
                 $asw = array_unique([
@@ -262,6 +263,14 @@ class DatabaseSeeder extends Seeder
         return new Question([
             'question' => $question,
             'type' => Question::QUESTION_OPEN,
+        ]);
+    }
+
+    private function openAreaQuestion($question)
+    {
+        return new Question([
+            'question' => $question,
+            'type' => Question::QUESTION_OPEN_AREA,
         ]);
     }
 

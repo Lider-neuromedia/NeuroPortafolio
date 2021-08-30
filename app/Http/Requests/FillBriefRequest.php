@@ -37,8 +37,8 @@ class FillBriefRequest extends FormRequest
         $validation = [];
 
         foreach ($content->brief->questions as $question) {
-            if ($question->isOpen()) {
-                $validation[$question->tag_id] = ['nullable', 'string', 'max:250'];
+            if ($question->isOpen() || $question->isOpenArea()) {
+                $validation[$question->tag_id] = ['nullable', 'string'];
             } else if ($question->isMultipleSelection()) {
                 $options = implode(",", $question->options);
                 $validation[$question->tag_id] = ['nullable', 'array', 'min:1', "in:$options"];

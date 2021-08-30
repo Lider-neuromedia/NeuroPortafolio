@@ -49818,14 +49818,14 @@ var briefFormApp = new Vue({
     canSave: function canSave() {
       var validation = true;
       var hasNoOptions = this.brief.questions.filter(function (x) {
-        return x.type != 'abierta' && x.options.length == 0;
+        return (x.type == 'seleccion_multiple' || x.type == 'seleccion_unica') && x.options.length == 0;
       }).length > 0;
       var hasNoDescriptions = this.brief.questions.filter(function (x) {
         return x.question.trim() == "";
       }).length > 0;
       var hasNoQuestions = this.brief.questions.length == 0;
       this.brief.questions.forEach(function (question) {
-        if (question.type != 'abierta') {
+        if (question.type == 'seleccion_multiple' || question.type == 'seleccion_unica') {
           var hasEmptyOptions = question.options.filter(function (x) {
             return x.trim() == "";
           }).length > 0;
@@ -49852,7 +49852,7 @@ var briefFormApp = new Vue({
             this.brief.questions[i].options = [];
           }
 
-          if (this.brief.questions[i].type == 'abierta' && this.brief.questions[i].options.length > 0) {
+          if ((this.brief.questions[i].type == 'abierta' || this.brief.questions[i].type == 'abierta_area') && this.brief.questions[i].options.length > 0) {
             this.brief.questions[i].options = [];
           }
         }

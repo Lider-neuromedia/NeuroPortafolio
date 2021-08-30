@@ -31,6 +31,7 @@ class BriefController extends Controller
                 "answer" => [""],
                 "type" => $question->type,
                 "isOpen" => $question->isOpen(),
+                "isOpenArea" => $question->isOpenArea(),
                 "isMultipleSelection" => $question->isMultipleSelection(),
                 "isUniqueSelection" => $question->isUniqueSelection(),
             ];
@@ -77,7 +78,7 @@ class BriefController extends Controller
                     $answer_data = $request->get($question->tag_id);
                     $answer = new Answer([
                         'question' => $question->question,
-                        'answer' => $question->isOpen() ? [$answer_data] : $answer_data,
+                        'answer' => $question->isOpen() || $question->isOpenArea() ? [$answer_data] : $answer_data,
                         'created_at' => $current_date->setSeconds($key)->format('Y-m-d H:i:s'),
                         'updated_at' => $current_date->setSeconds($key)->format('Y-m-d H:i:s'),
                     ]);

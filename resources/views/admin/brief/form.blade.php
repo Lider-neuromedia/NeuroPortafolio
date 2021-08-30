@@ -33,7 +33,7 @@
         <div class="card-body p-2">
 
             <div class="row">
-                <div class="col-12" :class="{'col-sm-6' : question.type != 'abierta'}">
+                <div class="col-12" :class="{'col-sm-6' : (question.type == 'seleccion_multiple' || question.type == 'seleccion_unica')}">
 
                     {{-- Descripción de la pregunta --}}
                     <div class="form-group">
@@ -63,7 +63,7 @@
                 <div class="col-12 col-sm-6">
 
                     {{-- Opciones de pregunta de selección --}}
-                    <div class="form-group" v-if="question.type != 'abierta'">
+                    <div class="form-group" v-if="question.type == 'seleccion_multiple' || question.type == 'seleccion_unica'">
                         <div class="d-flex justify-content-between align-middle">
                             <label>*Opciones</label>
                             <button type="button" class="btn btn-sm btn-success" title="Agregar opción" @@click="addOption(index)">

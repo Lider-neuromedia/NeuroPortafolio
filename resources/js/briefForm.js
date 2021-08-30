@@ -47,12 +47,12 @@ const briefFormApp = new Vue({
     computed: {
         canSave() {
             let validation = true;
-            const hasNoOptions = this.brief.questions.filter((x) => x.type != 'abierta' && x.options.length == 0).length > 0;
+            const hasNoOptions = this.brief.questions.filter((x) => (x.type == 'seleccion_multiple' || x.type == 'seleccion_unica') && x.options.length == 0).length > 0;
             const hasNoDescriptions = this.brief.questions.filter((x) => x.question.trim() == "").length > 0;
             const hasNoQuestions = this.brief.questions.length == 0;
 
             this.brief.questions.forEach(function (question) {
-                if (question.type != 'abierta') {
+                if (question.type == 'seleccion_multiple' || question.type == 'seleccion_unica') {
                     const hasEmptyOptions = question.options.filter((x) => x.trim() == "").length > 0;
 
                     if (hasEmptyOptions) {
@@ -76,7 +76,7 @@ const briefFormApp = new Vue({
                     if (this.brief.questions[i].options == null) {
                         this.brief.questions[i].options = [];
                     }
-                    if (this.brief.questions[i].type == 'abierta' && this.brief.questions[i].options.length > 0) {
+                    if ((this.brief.questions[i].type == 'abierta' || this.brief.questions[i].type == 'abierta_area') && this.brief.questions[i].options.length > 0) {
                         this.brief.questions[i].options = [];
                     }
                 }

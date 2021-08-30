@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     const QUESTION_OPEN = 'abierta';
+    const QUESTION_OPEN_AREA = 'abierta_area';
     const QUESTION_MULTIPLE = 'seleccion_multiple';
     const QUESTION_UNIQUE = 'seleccion_unica';
 
@@ -37,6 +38,11 @@ class Question extends Model
         return $this->type == self::QUESTION_OPEN;
     }
 
+    public function isOpenArea()
+    {
+        return $this->type == self::QUESTION_OPEN_AREA;
+    }
+
     public function isMultipleSelection()
     {
         return $this->type == self::QUESTION_MULTIPLE;
@@ -56,6 +62,7 @@ class Question extends Model
     {
         return [
             (Object) ['id' => self::QUESTION_OPEN, 'name' => 'Pregunta abierta'],
+            (Object) ['id' => self::QUESTION_OPEN_AREA, 'name' => 'Pregunta abierta, area de texto'],
             (Object) ['id' => self::QUESTION_MULTIPLE, 'name' => 'Pregunta de selección múltiple'],
             (Object) ['id' => self::QUESTION_UNIQUE, 'name' => 'Pregunta de selección única'],
         ];
