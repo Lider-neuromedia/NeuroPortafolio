@@ -28,6 +28,15 @@
                                     <td class="text-center">{{$brief->questions()->count()}}</td>
                                     <td class="text-center">{{$brief->clientsAssigned()->count()}}</td>
                                     <td class="text-right">
+                                        <a class="btn btn-warning" href="{{ route('brief.duplicate', $brief->id) }}"
+                                            onclick="event.preventDefault(); document.getElementById('duplicate-form-{{$brief->id}}').submit();">
+                                            Duplicar
+                                        </a>
+
+                                        <form id="duplicate-form-{{$brief->id}}" action="{{ route('brief.duplicate', $brief->id) }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+
                                         <a class="btn btn-success" href="{{ route("brief.edit", $brief->id) }}">Editar</a>
                                     </td>
                                 </tr>

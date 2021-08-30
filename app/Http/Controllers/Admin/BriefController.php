@@ -110,4 +110,47 @@ class BriefController extends Controller
             return redirect()->back()->withInput($request->input());
         }
     }
+
+    public function duplicate(Request $request, Brief $brief)
+    {
+        try {
+
+            \DB::beginTransaction();
+
+            $name = "";
+            $i = 2;
+
+            do {
+                $name = "{$brief->name} $i";
+                $i++;
+            } while (\DB::table('briefs')->whereName($name)->exists());
+
+            $new_brief = Brief::create(['name' => $name]);
+
+            foreach ($brief->questions as $key => $question) {
+                $q = new Question([
+                    'type' => $question->type,
+                    'question' => $question->question,
+                    'options' => $question->options,
+                    'created_at' => $question->created_at,
+                    'updated_at' => $question->updated_at,
+                ]);
+                $q->brief()->associate($new_brief);
+                $q->save();
+            }
+
+            \DB::commit();
+
+            session()->flash('message', "Brief duplicado correctamente.");
+            return redirect()->action('Admin\BriefController@edit', $new_brief->id);
+
+        } catch (\Exception $ex) {
+            \Log::info($ex->getMessage());
+            \Log::info($ex->getTraceAsString());
+            \DB::rollBack();
+
+            session()->flash('message-error', "Error interno al duplicar brief.");
+            return redirect()->back()->withInput($request->input());
+        }
+    }
 }

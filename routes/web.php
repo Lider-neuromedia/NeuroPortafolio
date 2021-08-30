@@ -31,6 +31,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     Route::resource('projects', 'ProjectsController', ['except' => ['show']]);
     Route::resource('categories', 'CategoriesController', ['except' => ['show']]);
     Route::resource('links', 'LinksController', ['only' => ['index', 'destroy']]);
+    Route::post('brief/{brief}/duplicate', 'BriefController@duplicate')->name('brief.duplicate');
     Route::resource('brief', 'BriefController', ['except' => ['show']]);
     Route::resource('clients', 'ClientsController', ['except' => ['show']]);
     Route::resource('brief-assign', 'BriefAssignController', ['except' => ['create', 'edit']]);

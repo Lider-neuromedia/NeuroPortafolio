@@ -18,6 +18,26 @@
                     @include('admin.brief.form')
                 </form>
 
+
+                {{-- Formulario de duplicar --}}
+
+                <div class="card border-secondary mb-3">
+                    <div class="card-header">Duplicar Brief</div>
+                    <div class="card-body text-secondary text-right">
+
+                        <a class="btn btn-warning border-secondary" href="{{ route('brief.duplicate', $brief->id) }}"
+                            onclick="event.preventDefault(); document.getElementById('duplicate-form-{{$brief->id}}').submit();">
+                            Duplicar
+                        </a>
+
+                        <form id="duplicate-form-{{$brief->id}}" action="{{ route('brief.duplicate', $brief->id) }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+
+                    </div>
+                </div>
+
+
                 {{-- Formulario de borrar --}}
 
                 <div class="card border-danger mb-3">
