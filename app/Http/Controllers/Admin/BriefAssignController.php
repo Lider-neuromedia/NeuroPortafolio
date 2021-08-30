@@ -71,7 +71,17 @@ class BriefAssignController extends Controller
 
     public function update(Request $request, ClientBrief $brief_assign)
     {
-        //
+        $statuses = implode(",", collect(ClientBrief::statuses())->pluck('id')->toArray());
+        $request->validate([
+            'status' => ['required', "in:$statuses"],
+        ]);
+
+        $brief_assign->update([
+            'status' => $request->get('status'),
+        ]);
+
+        session()->flash('message', "Registro actualizado correctamente.");
+        return redirect()->action('Admin\BriefAssignController@show', $brief_assign);
     }
 
     public function destroy(ClientBrief $brief_assign)
