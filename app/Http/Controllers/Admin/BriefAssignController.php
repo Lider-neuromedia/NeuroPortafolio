@@ -8,6 +8,7 @@ use App\ClientBrief;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AssignBriefRequest;
 use Illuminate\Http\Request;
+use League\CommonMark\CommonMarkConverter;
 
 class BriefAssignController extends Controller
 {
@@ -61,6 +62,15 @@ class BriefAssignController extends Controller
 
     public function show(ClientBrief $brief_assign)
     {
+        $converter = new CommonMarkConverter();
+
+        $brief_assign->answers->map(function ($answer) use ($converter) {
+            if (isset($answer->answer[0]) && strpos($answer->answer[0], "\n") !== false) {
+                $answer->answer = [$converter->convertToHtml($answer->answer[0])];
+            }
+            return $answer;
+        });
+
         return view('admin.brief-assign.show', compact('brief_assign'));
     }
 

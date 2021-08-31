@@ -40,7 +40,7 @@
                         <div class="card-header font-weight-bold">{{ $answer->question }}</div>
                         <div class="card-body">
                             @foreach ($answer->answer as $answer)
-                                <p>{{$answer}}</p>
+                                <div>{!!$answer!!}</div>
                             @endforeach
                         </div>
                     </div>
