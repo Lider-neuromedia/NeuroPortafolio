@@ -45,6 +45,15 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
 
     });
 
+    Route::prefix('charts')->group(function () {
+        Route::get('monthly', function () {
+            return view('admin.charts.monthly');
+        })->name('charts.monthly');
+        Route::get('events', function () {
+            return view('admin.charts.events');
+        })->name('charts.events');
+    });
+
 });
 
 Route::get('cmd-cache', function () {

@@ -69,3 +69,11 @@ if (document.getElementById('brief-form-app')) {
 if (document.getElementById('project-form-app')) {
     require('./projectForm');
 }
+
+if (document.getElementById('monthly-app')) {
+    require('./chartMonthly');
+}
+
+if (document.getElementById('events-app')) {
+    require('./chartEvents');
+}

@@ -49713,6 +49713,14 @@ if (document.getElementById('project-form-app')) {
   __webpack_require__(/*! ./projectForm */ "./resources/js/projectForm.js");
 }
 
+if (document.getElementById('monthly-app')) {
+  __webpack_require__(/*! ./chartMonthly */ "./resources/js/chartMonthly.js");
+}
+
+if (document.getElementById('events-app')) {
+  __webpack_require__(/*! ./chartEvents */ "./resources/js/chartEvents.js");
+}
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -49857,6 +49865,177 @@ var briefFormApp = new Vue({
           }
         }
       }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/chartEvents.js":
+/*!*************************************!*\
+  !*** ./resources/js/chartEvents.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Event = function Event(year, month, description) {
+  _classCallCheck(this, Event);
+
+  this.year = year;
+  this.month = month;
+  this.description = description;
+};
+
+var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+var app = new Vue({
+  el: '#events-app',
+  data: {
+    currentYear: new Date().getFullYear(),
+    months: months,
+    newEvent: {
+      month: months[new Date().getMonth()],
+      description: ''
+    },
+    events: []
+  },
+  methods: {
+    filteredEvents: function filteredEvents(month, year) {
+      return this.events.filter(function (e) {
+        return e.month == month && e.year == year;
+      });
+    },
+    changeYear: function changeYear(add) {
+      if (add) {
+        this.currentYear++;
+      } else {
+        this.currentYear--;
+      }
+    },
+    deleteEvent: function deleteEvent(event) {
+      var index = false;
+
+      for (var i = 0; i < this.events.length; i++) {
+        var element = this.events[i];
+
+        if (element.description == event.description && element.year == event.year && element.month == event.month) {
+          index = i;
+          break;
+        }
+      }
+
+      if (index >= 0) {
+        this.events.splice(index, 1);
+      }
+    },
+    createEvent: function createEvent() {
+      if (!this.newEvent.month) {
+        alert('Debe ingresar un mes');
+        return;
+      }
+
+      if (!this.newEvent.description) {
+        alert('Debe ingresar un título');
+        return;
+      }
+
+      this.events.push(new Event(this.currentYear, this.newEvent.month, this.newEvent.description)); // this.newEvent.month = months[(new Date()).getMonth()];
+
+      this.newEvent.description = '';
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/chartMonthly.js":
+/*!**************************************!*\
+  !*** ./resources/js/chartMonthly.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var Graph = Vue.component('graph', {
+  "extends": VueChartJs.Line,
+  mixins: [VueChartJs.mixins.reactiveProp],
+  name: 'Graph',
+  data: function data() {
+    return {
+      options: {
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [{
+            display: true,
+            ticks: {
+              beginAtZero: true,
+              suggestedMax: 100
+            }
+          }]
+        }
+      }
+    };
+  },
+  mounted: function mounted() {
+    this.renderChart(this.chartData, this.options);
+  }
+});
+var app = new Vue({
+  el: '#monthly-app',
+  components: {
+    Graph: Graph
+  },
+  data: {
+    months: [{
+      x: 'Junio',
+      y: 10
+    }, {
+      x: 'Julio',
+      y: 27
+    }, {
+      x: 'Agosto',
+      y: 72
+    }]
+  },
+  computed: {
+    graphData: function graphData() {
+      var labels = this.months.map(function (month) {
+        return month.x;
+      });
+      var data = this.months.map(function (month) {
+        return month.y;
+      });
+      var datasets = [{
+        label: 'Conteo',
+        data: data,
+        fill: true,
+        backgroundColor: 'rgba(99, 255, 132, 0.4)',
+        borderColor: 'rgba(99, 255, 132, 1)',
+        borderWidth: 2,
+        tension: 0.5
+      }];
+      return {
+        labels: labels,
+        datasets: datasets
+      };
+    }
+  },
+  watch: {
+    graphData: {
+      deep: true,
+      handler: function handler() {}
+    }
+  },
+  methods: {
+    addMonthRow: function addMonthRow() {
+      this.months.push({
+        x: 'Sin Nombre',
+        y: 0
+      });
+    },
+    removeMonthRow: function removeMonthRow(start) {
+      console.log(start);
+      this.months.splice(start, 1);
     }
   }
 });
