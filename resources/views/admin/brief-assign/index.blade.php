@@ -11,7 +11,7 @@
         </div>
 
         @include('admin.brief-assign.partials.assign-form')
-
+        @include('admin.brief-assign.partials.search')
 
         <div class="row justify-content-center mb-5">
             <div class="col-12">
@@ -41,7 +41,7 @@
                                         </a>
                                     </td>
                                     <td class="text-right">
-                                        <a class="btn btn-success" href="{{ route("brief-assign.show", $cb->id) }}">Ver</a>
+                                        <a class="btn btn-success btn-sm" href="{{ route("brief-assign.show", $cb->id) }}">Ver</a>
                                     </td>
                                 </tr>
 
@@ -57,7 +57,7 @@
         <div class="row justify-content-center mt-3 mb-5">
             <div class="col-auto text-center">
 
-                {{ $client_briefs->appends([])->links() }}
+                {{ $client_briefs->appends(['s' => $search])->links() }}
 
             </div>
         </div>

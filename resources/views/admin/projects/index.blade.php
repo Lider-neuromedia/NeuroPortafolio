@@ -24,7 +24,7 @@
                     </select>
 
                     <input class="flex-grow-1 form-control mx-2" type="search" name="s" value="{{$search}}" placeholder="Buscar proyectos" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
                 </form>
 
             </div>

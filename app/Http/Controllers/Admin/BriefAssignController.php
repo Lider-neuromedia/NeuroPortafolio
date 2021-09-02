@@ -12,12 +12,24 @@ use League\CommonMark\CommonMarkConverter;
 
 class BriefAssignController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->get('s');
         $clients = Client::orderBy('name', 'asc')->get();
         $briefs = Brief::orderBy('name', 'asc')->get();
-        $client_briefs = ClientBrief::orderBy('created_at', 'desc')->paginate(10);
-        return view('admin.brief-assign.index', compact('client_briefs', 'clients', 'briefs'));
+
+        $client_briefs = ClientBrief::query()
+            ->when($search, function ($q) use ($search) {
+                $q->whereHas('client', function ($q) use ($search) {
+                    $q->where('name', 'like', "%$search%");
+                })->orWhereHas('brief', function ($q) use ($search) {
+                    $q->where('name', 'like', "%$search%");
+                });
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('admin.brief-assign.index', compact('client_briefs', 'clients', 'briefs', 'search'));
     }
 
     public function create()
