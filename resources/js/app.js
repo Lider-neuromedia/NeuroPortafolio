@@ -30,6 +30,7 @@ window.Vue = require('vue');
 document.addEventListener('DOMContentLoaded', function () {
     configureInputFileChange();
     configureToggleDetailLinks();
+    configurePagination();
 });
 
 function configureInputFileChange() {
@@ -60,6 +61,14 @@ function configureToggleDetailLinks() {
 
         });
     });
+}
+
+/**
+ * Agregar clases css a elementos de paginación.
+ */
+function configurePagination() {
+    const paginations = document.querySelectorAll('.pagination');
+    paginations.forEach(x => x.classList.add('pagination-sm', 'm-0'));
 }
 
 if (document.getElementById('brief-form-app')) {

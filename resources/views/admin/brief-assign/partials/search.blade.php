@@ -1,10 +1,10 @@
-<div class="row justify-content-center mt-5 mb-2">
-    <div class="col-12">
-
-        <form class="d-flex" method="get" action="{{ url('admin/brief-assign') }}">
-            <input class="flex-grow-1 form-control mr-2" placeholder="Buscar por cliente o brief" aria-label="Search" type="search" name="s" value="{{$search}}">
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
-        </form>
-
+<form method="get" action="{{ url('admin/brief-assign') }}">
+    <div class="input-group input-group-sm" style="width: 200px;">
+        <input class="form-control float-right" placeholder="Buscar" type="search" name="s" value="{{$search}}">
+        <div class="input-group-append">
+            <button class="btn btn-default" type="submit" title="Ejecutar Búsqueda">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
     </div>
-</div>
+</form>

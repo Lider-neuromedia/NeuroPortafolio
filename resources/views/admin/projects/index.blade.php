@@ -1,104 +1,110 @@
 @extends('layouts.dashboard')
 
+@section('title', 'Portafolio')
+
+@section('breadcrumbs')
+    <li class="breadcrumb-item active">Portafolio</li>
+@endsection
+
 @section('content')
-    <div class="container">
 
-        <div class="row justify-content-center mb-5">
-            <div class="col-12 col-md-8">
+    <div class="row justify-content-center mb-5">
+        <div class="col-12 col-sm-8">
+            <form class="d-flex mb-1" method="get" action="{{ url('admin/projects') }}">
+                @if ($create_link == 1)
+                    <input type="hidden" name="create-link" value="{{$create_link}}">
+                @endif
 
-                <form class="d-flex" method="get" action="{{ url('admin/projects') }}">
+                <select class="form-control" name="c" id="c">
+                    <option value="">Todo</option>
+                    @foreach ($categories as $cat)
+                        <option value="{{ $cat->id }}" @if ($category == $cat->id) selected @endif>
+                            {{ $cat->name }} ({{ $cat->count_projects }})
+                        </option>
+                    @endforeach
+                </select>
 
-                    @if ($create_link == 1)
+                <input class="flex-grow-1 form-control mx-2" type="search" name="s" value="{{$search}}" placeholder="Buscar proyectos" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </form>
+        </div>
+        <div class="col-12 col-sm-4 text-right">
+            <a class="btn btn-primary" href="{{ route('projects.create') }}">
+                Crear Proyecto
+            </a>
+        </div>
+    </div>
 
-                        <input type="hidden" name="create-link" value="{{$create_link}}">
+    @if ($create_link == 1)
 
+        @include('admin.projects.partials.create-link')
+
+    @endif
+
+    <div class="row">
+        @foreach ($projects as $project)
+
+            <div class="col-12 col-sm-6 col-lg-4 mb-4">
+                <div class="card">
+                    @if ($project->images->first())
+                        <img
+                            class="card-img-top"
+                            src="{{ $project->images->first()->url }}"
+                            alt="{{ $project->title }}">
                     @endif
 
-                    <select class="form-control" name="c" id="c">
-                        <option value="">Todo</option>
-                        @foreach ($categories as $cat)
-                            <option value="{{ $cat->id }}" @if ($category == $cat->id) selected @endif>
-                                {{ $cat->name }} ({{ $cat->count_projects }})
-                            </option>
-                        @endforeach
-                    </select>
+                    <div class="card-header text-center">{{ $project->title }}</div>
+                    <div class="card-body">
 
-                    <input class="flex-grow-1 form-control mx-2" type="search" name="s" value="{{$search}}" placeholder="Buscar proyectos" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Buscar</button>
-                </form>
+                        @if ($create_link == 1)
 
-            </div>
-        </div>
+                            <div class="d-flex justify-content-center" style="gap: 1rem;">
+                                <form action="{{ route('link-creation.add', $project) }}" method="post">
+                                    @csrf
+                                    <input class="btn btn-success" type="submit" value="Seleccionar">
+                                </form>
+                            </div>
 
-        @if ($create_link == 1)
+                        @else
 
-            @include('admin.projects.partials.create-link')
+                            <div class="text-center">
+                                <a
+                                    href="{{ route('projects.edit', $project) }}"
+                                    class="btn btn-outline-success"
+                                    role="button">
+                                    Editar</a>
+                            </div>
 
-        @endif
-
-        <div class="row">
-            @foreach ($projects as $project)
-
-                <div class="col-12 col-sm-6 col-lg-4 mb-4">
-                    <div class="card">
-                        @if ($project->images->first())
-                            <img
-                                class="card-img-top"
-                                src="{{ $project->images->first()->url }}"
-                                alt="{{ $project->title }}">
                         @endif
 
-                        <div class="card-header text-center">{{ $project->title }}</div>
-                        <div class="card-body">
-
-                            @if ($create_link == 1)
-
-                                <div class="d-flex justify-content-center" style="gap: 1rem;">
-                                    <form action="{{ route('link-creation.add', $project) }}" method="post">
-                                        @csrf
-                                        <input class="btn btn-success" type="submit" value="Seleccionar">
-                                    </form>
-                                </div>
-
-                            @else
-
-                                <div class="text-center">
-                                    <a
-                                        href="{{ route('projects.edit', $project) }}"
-                                        class="btn btn-outline-success"
-                                        role="button">
-                                        Editar</a>
-                                </div>
-
-                            @endif
-
-                        </div>
                     </div>
                 </div>
-
-            @endforeach
-
-        </div>
-
-        <div class="row justify-content-center mt-3 mb-5">
-            <div class="col-12 text-center">
-
-                @php
-                    $appends = [ 's' => $search, 'c' => $category ];
-
-                    if ($create_link == 1) {
-
-                        $appends['create-link'] = $create_link;
-
-                    }
-                @endphp
-
-                <div class="table-responsive">
-                    {{ $projects->appends($appends)->links() }}
-                </div>
-
             </div>
-        </div>
+
+        @endforeach
 
     </div>
+
+    <div class="row mt-3 mb-5">
+        <div class="col-12">
+
+            @php
+                $appends = [ 's' => $search, 'c' => $category ];
+
+                if ($create_link == 1) {
+
+                    $appends['create-link'] = $create_link;
+
+                }
+            @endphp
+
+            <div class="table-responsive">
+                {{ $projects->appends($appends)->links() }}
+            </div>
+
+        </div>
+    </div>
+
 @endsection

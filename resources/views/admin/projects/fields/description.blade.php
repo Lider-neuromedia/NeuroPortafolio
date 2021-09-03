@@ -5,7 +5,7 @@
         name="description"
         id="description"
         cols="30"
-        rows="6">{{ old('description') ?: $project->description }}</textarea>
+        rows="10">{{ old('description') ?: $project->description }}</textarea>
 
     @error('description')
         <span class="invalid-feedback" role="alert">

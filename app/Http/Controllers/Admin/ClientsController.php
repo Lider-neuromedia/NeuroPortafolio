@@ -11,7 +11,9 @@ class ClientsController extends Controller
 {
     public function index()
     {
-        $clients = Client::orderBy('name', 'asc')->paginate(10);
+        $clients = Client::query()
+            ->orderBy('name', 'asc')
+            ->paginate(10);
         return view('admin.clients.index', compact('clients'));
     }
 

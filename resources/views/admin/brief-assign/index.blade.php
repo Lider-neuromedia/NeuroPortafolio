@@ -1,66 +1,60 @@
 @extends('layouts.dashboard')
 
+@section('title', 'Brief Asignados')
+
+@section('breadcrumbs')
+    <li class="breadcrumb-item active">Brief Asignados</li>
+@endsection
+
 @section('content')
-    <div class="container">
 
-        <div class="row justify-content-center">
-            <div class="col-12">
-                <h1>Brief Asignados</h1>
-                <hr>
+    @include('admin.brief-assign.partials.assign-form')
+
+    <div class="card">
+        <div class="card-header">
+            <div class="card-tools">
+                @include('admin.brief-assign.partials.search')
             </div>
         </div>
+        <div class="card-body table-responsive p-0">
 
-        @include('admin.brief-assign.partials.assign-form')
-        @include('admin.brief-assign.partials.search')
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Brief</th>
+                        <th>Estado</th>
+                        <th>URL</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
 
-        <div class="row justify-content-center mb-5">
-            <div class="col-12">
-                <div class="table-responsive">
+                    @foreach ($client_briefs as $cb)
 
-                    <table class="table table-bordered">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Cliente</th>
-                                <th>Brief</th>
-                                <th>Estado</th>
-                                <th>URL</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                        <tr>
+                            <td>{{$cb->client->name}}</td>
+                            <td>{{$cb->brief ? $cb->brief->name : "Brief Borrado"}}</td>
+                            <td>{{$cb->status_format }}</td>
+                            <td>
+                                <a href="{{$cb->url}}" title="{{$cb->url}}" target="_blank">
+                                    Enlace Público
+                                </a>
+                            </td>
+                            <td class="text-right">
+                                <a class="btn btn-success btn-xs" href="{{ route("brief-assign.show", $cb->id) }}">Ver</a>
+                            </td>
+                        </tr>
 
-                            @foreach ($client_briefs as $cb)
+                    @endforeach
 
-                                <tr>
-                                    <td>{{$cb->client->name}}</td>
-                                    <td>{{$cb->brief ? $cb->brief->name : "Brief Borrado"}}</td>
-                                    <td>{{$cb->status_format }}</td>
-                                    <td>
-                                        <a href="{{$cb->url}}" title="{{$cb->url}}" target="_blank">
-                                            Enlace Público
-                                        </a>
-                                    </td>
-                                    <td class="text-right">
-                                        <a class="btn btn-success btn-sm" href="{{ route("brief-assign.show", $cb->id) }}">Ver</a>
-                                    </td>
-                                </tr>
+                </tbody>
+            </table>
 
-                            @endforeach
-
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
         </div>
-
-        <div class="row justify-content-center mt-3 mb-5">
-            <div class="col-auto text-center">
-
-                {{ $client_briefs->appends(['s' => $search])->links() }}
-
-            </div>
+        <div class="card-footer d-flex justify-content-center">
+            {{ $client_briefs->appends(['s' => $search])->links() }}
         </div>
-
     </div>
+
 @endsection

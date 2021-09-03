@@ -2,9 +2,9 @@
 $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: 'Nunito',
+$font-family-sans-serif: 'Source Sans Pro',
 sans-serif;
-$font-size-base: 0.9rem;
+$font-size-base: 1rem;
 $line-height-base: 1.6;
 
 // Colors
@@ -18,5 +18,8 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+$primary: #f1414c;
+$danger: #f6993f;
 
 $custom-file-text: (en: "Browse", es: "Elegir");

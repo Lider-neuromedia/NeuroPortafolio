@@ -1,8 +1,12 @@
-@include('admin.projects.fields.title')
-@include('admin.projects.fields.categories')
-@include('admin.projects.fields.description')
-
-<hr>
+<div class="row">
+    <div class="col-12 col-lg-6">
+        @include('admin.projects.fields.title')
+        @include('admin.projects.fields.categories')
+    </div>
+    <div class="col-12 col-lg-6">
+        @include('admin.projects.fields.description')
+    </div>
+</div>
 
 <div id="project-form-app">
 
@@ -15,11 +19,7 @@
         </div>
     </div>
 
-    <hr>
-
     @include('admin.projects.fields.images')
-
-    <hr>
 
     <div class="row">
         <div class="col-md-12 my-5">

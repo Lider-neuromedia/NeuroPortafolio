@@ -1,13 +1,17 @@
 @extends('layouts.dashboard')
 
+@section('title', 'Editar Usuario')
+
+@section('breadcrumbs')
+    <li class="breadcrumb-item"><a href="{{route('users.index')}}">Usuarios</a></li>
+    <li class="breadcrumb-item active">Editar Usuario</li>
+@endsection
+
 @section('content')
     <div class="container">
 
         <div class="row justify-content-center mb-5">
             <div class="col-12 col-md-8">
-
-                <h1>Editar Usuario</h1>
-                <hr>
 
                 {{-- Formulario de editar --}}
 
@@ -20,28 +24,21 @@
 
                 {{-- Formulario de borrar --}}
 
-                <div class="card border-danger mb-3">
-                    <div class="card-header">Borrar Usuario</div>
-                    <div class="card-body text-danger text-right">
+                @if (\Auth::user()->id == $user->id)
 
-                        @if (\Auth::user()->id == $user->id)
-
-                            <div class="alert alert-warning border-warning text-center">
-                                No se puede borrar así mismo
-                            </div>
-
-                        @else
-
-                            <form action="{{ route('users.destroy', $user->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <input class="btn btn-danger" type="submit" value="Borrar">
-                            </form>
-
-                        @endif
-
+                    <div class="alert alert-warning text-center">
+                        No se puede borrar así mismo
                     </div>
-                </div>
+
+                @else
+
+                    @include('admin.partials.delete', [
+                        'id_form' => 'delete-user-form',
+                        'label' => 'Borrar Usuario',
+                        'route' => route('users.destroy', $user->id)
+                    ])
+
+                @endif
 
             </div>
         </div>

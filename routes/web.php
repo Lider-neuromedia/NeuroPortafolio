@@ -27,6 +27,10 @@ Route::post('brief/{slug}/complete', 'BriefController@complete')->name('brief.co
 
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function () {
 
+    Route::get('page', function () {
+        return view('layouts.page');
+    });
+
     Route::resource('users', 'UsersController', ['except' => ['show']]);
     Route::resource('projects', 'ProjectsController', ['except' => ['show']]);
     Route::resource('categories', 'CategoriesController', ['except' => ['show']]);

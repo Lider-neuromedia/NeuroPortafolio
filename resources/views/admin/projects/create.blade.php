@@ -1,13 +1,17 @@
 @extends('layouts.dashboard')
 
+@section('title', 'Crear Proyecto')
+
+@section('breadcrumbs')
+    <li class="breadcrumb-item"><a href="{{route('projects.index')}}">Portafolio</a></li>
+    <li class="breadcrumb-item active">Crear Proyecto</li>
+@endsection
+
 @section('content')
     <div class="container">
 
         <div class="row justify-content-center mb-5">
             <div class="col-12 col-md-10">
-
-                <h1>Crear Proyecto</h1>
-                <hr>
 
                 <form action="{{ route('projects.store', $project) }}" method="post" enctype="multipart/form-data">
                     @csrf

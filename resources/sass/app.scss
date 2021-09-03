@@ -1,8 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 @import 'variables';
 @import '~bootstrap/scss/bootstrap';
+
+// FontAwesome
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+// Admin LTE
+@import '~admin-lte/build/scss/adminlte';
+
 @import 'dashboard';
-// @import '~admin-lte/dist/css/adminlte.css';
 
 .video-responsive {
     height: 0;

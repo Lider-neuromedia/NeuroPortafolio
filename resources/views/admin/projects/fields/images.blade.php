@@ -6,10 +6,10 @@
 
             <div class="">
                 <button type="button" class="btn btn-dark btn-sm" title="Remover Imagen" @@click="removeImage" :disabled="newImages.length == 0">
-                    <i class="bi bi-dash-circle"></i>
+                    <i class="fa fa-minus" aria-hidden="true"></i>
                 </button>
                 <button type="button" class="btn btn-success btn-sm" title="Agregar Imagen" @@click="addImage">
-                    <i class="bi bi-plus-circle"></i>
+                    <i class="fa fa-plus" aria-hidden="true"></i>
                 </button>
             </div>
         </label>
@@ -43,7 +43,7 @@
             <img width="100%" height="auto" :src="image.url" class="card-img-top" alt="imagen">
             <div class="card-body text-center">
                 <button type="button" class="btn btn-sm btn-danger" title="Borrar imagen" @@click="removeCurrentImage(index)">
-                    <i class="bi bi-trash"></i>
+                    <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
             </div>
         </div>

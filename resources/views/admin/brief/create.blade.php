@@ -1,13 +1,17 @@
 @extends('layouts.dashboard')
 
+@section('title', 'Crear Brief')
+
+@section('breadcrumbs')
+    <li class="breadcrumb-item"><a href="{{route('brief.index')}}">Briefs</a></li>
+    <li class="breadcrumb-item active">Crear Brief</li>
+@endsection
+
 @section('content')
     <div class="container">
 
         <div class="row justify-content-center mb-5">
             <div class="col-12 col-md-8">
-
-                <h1>Crear Brief</h1>
-                <hr>
 
                 <form action="{{ route('brief.store', $brief) }}" method="post">
                     @csrf

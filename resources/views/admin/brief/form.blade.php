@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-between align-middle mt-5">
         <h4>Preguntas</h4>
         <button type="button" class="btn btn-sm btn-success" title="Agregar Pregunta" @@click="addQuestion">
-            <i class="bi bi-plus-circle"></i>
+            <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
     </div>
 
@@ -15,19 +15,23 @@
 
         <input v-if="question.id" type="hidden" :name="`questions[${index}][id]`" :value="question.id">
 
-        <div class="card-header d-flex justify-content-between align-middle p-2">
-            <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-warning" title="Bajar posición" @@click="move(index, false)">
-                    <i class="bi bi-arrow-down"></i>
-                </button>
-                <button type="button" class="btn btn-sm btn-warning" title="Subir posición" @@click="move(index, true)">
-                    <i class="bi bi-arrow-up"></i>
-                </button>
+        <div class="card-header">
+            <div class="card-title">
+                <span class="font-weight-bold">Pregunta #@{{index + 1}}</span>
             </div>
-            <span class="font-weight-bold">Pregunta #@{{index + 1}}</span>
-            <button type="button" class="btn btn-sm btn-danger" title="Borrar pregunta" @@click="removeQuestion(index)">
-                <i class="bi bi-trash"></i>
-            </button>
+            <div class="card-tools">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-warning" title="Bajar posición" @@click="move(index, false)">
+                        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-warning" title="Subir posición" @@click="move(index, true)">
+                        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger" title="Borrar pregunta" @@click="removeQuestion(index)">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
         </div>
 
         <div class="card-body p-2">
@@ -67,7 +71,7 @@
                         <div class="d-flex justify-content-between align-middle">
                             <label>*Opciones</label>
                             <button type="button" class="btn btn-sm btn-success" title="Agregar opción" @@click="addOption(index)">
-                                <i class="bi bi-plus-circle"></i>
+                                <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
                         </div>
                         <div v-for="(option, kndex) in question.options" :key="kndex" class="d-flex justify-content-between my-1">
@@ -77,7 +81,7 @@
                                 v-model="question.options[kndex]"
                                 class="form-control" type="text" maxlength="250" required>
                             <button type="button" class="btn btn-sm btn-dark ml-1" title="Borrar opción" @@click="removeOption(index, kndex)">
-                                <i class="bi bi-x-circle"></i>
+                                <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
                         </div>
                     </div>
