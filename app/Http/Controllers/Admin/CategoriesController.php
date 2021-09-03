@@ -9,10 +9,16 @@ use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::orderBy('name', 'asc')->paginate(10);
-        return view('admin.categories.index', compact('categories'));
+        $search = $request->get('s');
+        $categories = Category::query()
+            ->when($search, function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%");
+            })
+            ->orderBy('name', 'asc')
+            ->paginate(10);
+        return view('admin.categories.index', compact('categories', 'search'));
     }
 
     public function create()

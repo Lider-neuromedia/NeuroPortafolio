@@ -11,15 +11,7 @@
     <div class="card">
         <div class="card-header">
             <div class="card-tools">
-                <div class="input-group input-group-sm" style="width: 200px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Buscar">
-
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-default" title="Ejecutar Búsqueda">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
+                @include('admin.partials.table-search', ['search_route' => route('categories.index')])
             </div>
         </div>
         <div class="card-body table-responsive p-0">
@@ -55,7 +47,7 @@
 
         </div>
         <div class="card-footer d-flex justify-content-center">
-            {{ $categories->appends([])->links() }}
+            {{ $categories->appends(['s' => $search])->links() }}
         </div>
     </div>
 
