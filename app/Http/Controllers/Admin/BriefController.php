@@ -11,12 +11,16 @@ use Illuminate\Http\Request;
 
 class BriefController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->get('s');
         $briefs = Brief::query()
+            ->when($search, function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%");
+            })
             ->orderBy('name', 'asc')
             ->paginate(10);
-        return view('admin.brief.index', compact('briefs'));
+        return view('admin.brief.index', compact('briefs', 'search'));
     }
 
     public function create()
