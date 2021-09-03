@@ -27,20 +27,29 @@ Route::post('brief/{slug}/complete', 'BriefController@complete')->name('brief.co
 
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function () {
 
-    Route::get('page', function () {
-        return view('layouts.page');
-    });
-
     Route::middleware('role:admin')->resource('users', 'UsersController', ['except' => ['show']]);
-    Route::resource('projects', 'ProjectsController', ['except' => ['show']]);
-    Route::resource('categories', 'CategoriesController', ['except' => ['show']]);
-    Route::resource('links', 'LinksController', ['only' => ['index', 'destroy']]);
-    Route::post('brief/{brief}/duplicate', 'BriefController@duplicate')->name('brief.duplicate');
-    Route::resource('brief', 'BriefController', ['except' => ['show']]);
-    Route::resource('clients', 'ClientsController', ['except' => ['show']]);
-    Route::resource('brief-assign', 'BriefAssignController', ['except' => ['create', 'edit']]);
 
-    Route::prefix('create-link')->group(function () {
+    Route::middleware('role:admin')->resource('projects', 'ProjectsController', ['except' => ['index', 'show']]);
+    Route::middleware('role:viewer')->get('/projects', 'ProjectsController@index')->name('projects.index');
+
+    Route::middleware('role:admin')->resource('categories', 'CategoriesController', ['except' => ['index', 'show']]);
+    Route::middleware('role:viewer')->get('/categories', 'CategoriesController@index')->name('categories.index');
+
+    Route::middleware('role:admin')->resource('links', 'LinksController', ['only' => ['destroy']]);
+    Route::middleware('role:admin')->post('brief/{brief}/duplicate', 'BriefController@duplicate')->name('brief.duplicate');
+    Route::middleware('role:viewer')->get('/links', 'LinksController@index')->name('links.index');
+
+    Route::middleware('role:admin')->resource('brief', 'BriefController', ['except' => ['index', 'show']]);
+    Route::middleware('role:viewer')->get('/brief', 'BriefController@index')->name('brief.index');
+
+    Route::middleware('role:admin')->resource('clients', 'ClientsController', ['except' => ['index', 'show']]);
+    Route::middleware('role:viewer')->get('/clients', 'ClientsController@index')->name('clients.index');
+
+    Route::middleware('role:admin')->resource('brief-assign', 'BriefAssignController', ['except' => ['index', 'create', 'edit', 'show']]);
+    Route::middleware('role:viewer')->get('/brief-assign', 'BriefAssignController@index')->name('brief-assign.index');
+    Route::middleware('role:viewer')->get('/brief-assign/{brief_assign}', 'BriefAssignController@show')->name('brief-assign.show');
+
+    Route::middleware('role:admin')->prefix('create-link')->group(function () {
 
         Route::post('/add/{project}', 'ProjectsController@addProjectToLink')->name('link-creation.add');
         Route::post('/remove/{project}', 'ProjectsController@removeProjectFromLink')->name('link-creation.remove');
@@ -49,7 +58,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
 
     });
 
-    Route::prefix('charts')->group(function () {
+    Route::middleware('role:viewer')->prefix('charts')->group(function () {
         Route::get('monthly', function () {
             return view('admin.charts.monthly');
         })->name('charts.monthly');
