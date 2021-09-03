@@ -9,10 +9,17 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::orderBy('name', 'asc')->paginate(10);
-        return view('admin.users.index', compact('users'));
+        $search = $request->get('s');
+        $users = User::query()
+            ->when($search, function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%")
+                    ->orWhere('email', 'like', "%$search%");
+            })
+            ->orderBy('name', 'asc')
+            ->paginate(10);
+        return view('admin.users.index', compact('users', 'search'));
     }
 
     public function create()

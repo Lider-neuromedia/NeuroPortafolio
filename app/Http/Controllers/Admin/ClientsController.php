@@ -9,12 +9,16 @@ use Illuminate\Http\Request;
 
 class ClientsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->get('s');
         $clients = Client::query()
+            ->when($search, function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%");
+            })
             ->orderBy('name', 'asc')
             ->paginate(10);
-        return view('admin.clients.index', compact('clients'));
+        return view('admin.clients.index', compact('clients', 'search'));
     }
 
     public function create()
