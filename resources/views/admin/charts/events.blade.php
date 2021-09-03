@@ -40,14 +40,14 @@
                 <div class="row no-gutters">
 
                     <div class="col-12">
-                        <div class="rounded-0 m-0 p-2 d-flex flex-row justify-content-between align-items-center alert alert-success border-dark">
-                            <button class="btn btn-sm btn-dark rounded-circle" type="button" @@click="changeYear(false)">
+                        <div class="rounded-0 m-0 p-2 d-flex flex-row justify-content-between align-items-center alert alert-primary border-dark">
+                            <button class="btn btn-sm btn-dark" type="button" @@click="changeYear(false)">
                                 <i class="fa fa-angle-left" aria-hidden="true"></i>
                             </button>
 
                             <h4 class="px-4 m-0">@{{ currentYear }}</h4>
 
-                            <button class="btn btn-sm btn-dark rounded-circle" type="button" @@click="changeYear(true)">
+                            <button class="btn btn-sm btn-dark" type="button" @@click="changeYear(true)">
                                 <i class="fa fa-angle-right" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -62,7 +62,7 @@
                             <div class="month-events">
                                 <div
                                     v-for="(event, jndex) in filteredEvents(month, currentYear)" :key="jndex"
-                                    class="alert alert-success rounded-0 m-0 mt-1 p-1 text-center" role="alert"
+                                    class="alert alert-primary rounded-0 m-0 mt-1 p-1 text-center" role="alert"
                                     style="cursor: pointer;"
                                     @@click="deleteEvent(event)">
                                     @{{ event.description }}

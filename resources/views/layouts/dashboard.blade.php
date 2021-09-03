@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="{{ url('favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>NeuroMedia</title>
@@ -14,12 +13,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap">
 
-    <!-- Styles -->
+    <script src="https://use.fontawesome.com/eb01d11666.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link href="{{ asset('css/app.css') }}?v={{ env('ASSETS_VERSION', 1) }}" rel="stylesheet">
 
     @yield('scripts')
 </head>
-
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
@@ -46,7 +45,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="{{route('projects.index')}}" class="brand-link">
                 <div class="">
                     <img src="{{url('images/logo.png')}}" class="brand-image img-circle elevation-3 bg-white">
                 </div>
@@ -80,7 +79,8 @@
                         <li class="nav-item"><a class="nav-link @if($current == route('users.index'))) active @endif" href="{{ route('users.index') }}"><i class="nav-icon far fa fa-user-circle-o"></i> <p>Usuarios</p></a></li>
 
                         <li class="nav-item">
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link  text-danger">
+                            <a href="{{ route('logout') }}" class="nav-link  text-danger"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="nav-icon far fa fa-door-closed"></i><p>Cerrar Sesión</p>
                             </a>
                         </li>

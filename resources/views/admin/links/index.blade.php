@@ -75,7 +75,7 @@
                                     <button
                                         type="submit"
                                         class="btn btn-danger btn-xs" title="Borrar Enlace">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
                                     </button>
                                 </form>
                             </td>
