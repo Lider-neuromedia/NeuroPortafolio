@@ -31,7 +31,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
         return view('layouts.page');
     });
 
-    Route::resource('users', 'UsersController', ['except' => ['show']]);
+    Route::middleware('role:admin')->resource('users', 'UsersController', ['except' => ['show']]);
     Route::resource('projects', 'ProjectsController', ['except' => ['show']]);
     Route::resource('categories', 'CategoriesController', ['except' => ['show']]);
     Route::resource('links', 'LinksController', ['only' => ['index', 'destroy']]);

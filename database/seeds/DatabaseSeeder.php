@@ -44,6 +44,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Jose Nieto',
             'email' => 'inge1neuro@gmail.com',
             'password' => \Hash::make("secret"),
+            'roles' => [User::ROLE_ADMIN, User::ROLE_VIEWER],
+        ]);
+        User::create([
+            'name' => 'Usuario Espectador',
+            'email' => 'espectador@mail.com',
+            'password' => \Hash::make("secret"),
+            'roles' => [User::ROLE_VIEWER],
         ]);
     }
 
@@ -179,7 +186,7 @@ class DatabaseSeeder extends Seeder
 
         $faker = Factory::create();
 
-        for ($i = 0; $i < 30; $i++) {
+        for ($i = 0; $i < 15; $i++) {
             $projects = Project::query()
                 ->inRandomOrder()
                 ->take($faker->numberBetween(2, 10))

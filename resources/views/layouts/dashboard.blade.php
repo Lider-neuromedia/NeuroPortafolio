@@ -75,8 +75,12 @@
                         <li class="nav-item"><a class="nav-link @if($current == route('charts.monthly')) active @endif" href="{{ route('charts.monthly') }}"><i class="nav-icon far fa fa-area-chart"></i> <p>Meses</p></a></li>
                         <li class="nav-item"><a class="nav-link @if($current == route('charts.events'))) active @endif" href="{{ route('charts.events') }}"><i class="nav-icon far fa fa-table"></i> <p>Eventos</p></a></li>
 
-                        <li class="nav-header text-warning"><span>ADMINISTRACIÓN</span></li>
-                        <li class="nav-item"><a class="nav-link @if($current == route('users.index'))) active @endif" href="{{ route('users.index') }}"><i class="nav-icon far fa fa-user-circle-o"></i> <p>Usuarios</p></a></li>
+                        @hasrole('admin')
+
+                            <li class="nav-header text-warning"><span>ADMINISTRACIÓN</span></li>
+                            <li class="nav-item"><a class="nav-link @if($current == route('users.index'))) active @endif" href="{{ route('users.index') }}"><i class="nav-icon far fa fa-user-circle-o"></i> <p>Usuarios</p></a></li>
+
+                        @endhasrole
 
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link  text-danger"
