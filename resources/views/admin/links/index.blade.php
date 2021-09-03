@@ -33,9 +33,13 @@
                         <th>Enlace Público</th>
                         <th class="text-center">Proyectos</th>
                         <th></th>
-                        <th class="text-right">
-                            <a class="btn btn-primary btn-xs" href="{{ route('projects.index') }}?create-link=1">Crear Enlace</a>
-                        </th>
+                        @hasrole('admin')
+                            <th class="text-right">
+                                <a class="btn btn-primary btn-xs" href="{{ route('projects.index') }}?create-link=1">
+                                    Crear Enlace
+                                </a>
+                            </th>
+                        @endhasrole
                     </tr>
                 </thead>
                 <tbody>
@@ -59,22 +63,24 @@
                                     <i class="fa fa-list" aria-hidden="true" data-detail="link-detail-{{ $link->id }}"></i>
                                 </button>
                             </td>
-                            <td class="text-right">
-                                <form action="{{ route('links.destroy', $link->id) }}" method="POST">
-                                    @method("DELETE")
-                                    @csrf
+                            @hasrole('admin')
+                                <td class="text-right">
+                                    <form action="{{ route('links.destroy', $link->id) }}" method="POST">
+                                        @method("DELETE")
+                                        @csrf
 
-                                    <button
-                                        type="submit"
-                                        class="btn btn-danger btn-xs" title="Borrar Enlace">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
-                                </form>
-                            </td>
+                                        <button
+                                            type="submit"
+                                            class="btn btn-danger btn-xs" title="Borrar Enlace">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            @endhasrole
                         </tr>
 
                         <tr class="detail-hidden" id="link-detail-{{ $link->id }}">
-                            <td colspan="3">
+                            <td colspan="{{auth()->user()->hasrole('admin') ? 4 : 3}}">
                                 <ul class="list-group">
                                     @foreach ($link->projects as $project)
                                         <li class="list-group-item">{{$project->title}}</li>

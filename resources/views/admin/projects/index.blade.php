@@ -31,9 +31,11 @@
             </form>
         </div>
         <div class="col-12 col-sm-4 text-right">
-            <a class="btn btn-primary" href="{{ route('projects.create') }}">
-                Crear Proyecto
-            </a>
+            @hasrole('admin')
+                <a class="btn btn-primary" href="{{ route('projects.create') }}">
+                    Crear Proyecto
+                </a>
+            @endhasrole
         </div>
     </div>
 
@@ -56,30 +58,33 @@
                     @endif
 
                     <div class="card-header text-center">{{ $project->title }}</div>
-                    <div class="card-body">
 
-                        @if ($create_link == 1)
+                    @hasrole('admin')
+                        <div class="card-body">
 
-                            <div class="d-flex justify-content-center" style="gap: 1rem;">
-                                <form action="{{ route('link-creation.add', $project) }}" method="post">
-                                    @csrf
-                                    <input class="btn btn-success" type="submit" value="Seleccionar">
-                                </form>
-                            </div>
+                            @if ($create_link == 1)
 
-                        @else
+                                <div class="d-flex justify-content-center" style="gap: 1rem;">
+                                    <form action="{{ route('link-creation.add', $project) }}" method="post">
+                                        @csrf
+                                        <input class="btn btn-success" type="submit" value="Seleccionar">
+                                    </form>
+                                </div>
 
-                            <div class="text-center">
-                                <a
-                                    href="{{ route('projects.edit', $project) }}"
-                                    class="btn btn-outline-success"
-                                    role="button">
-                                    Editar</a>
-                            </div>
+                            @else
 
-                        @endif
+                                <div class="text-center">
+                                    <a
+                                        href="{{ route('projects.edit', $project) }}"
+                                        class="btn btn-outline-success"
+                                        role="button">
+                                        Editar</a>
+                                </div>
 
-                    </div>
+                            @endif
+
+                        </div>
+                    @endhasrole
                 </div>
             </div>
 

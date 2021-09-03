@@ -21,11 +21,13 @@
                         <th>Nombre</th>
                         <th class="text-center">Preguntas</th>
                         <th class="text-center">Clientes Asignados</th>
-                        <th class="text-right">
-                            <a class="btn btn-xs btn-primary" href="{{ route('brief.create') }}">
-                                Crear Brief
-                            </a>
-                        </th>
+                        @hasrole('admin')
+                            <th class="text-right">
+                                <a class="btn btn-xs btn-primary" href="{{ route('brief.create') }}">
+                                    Crear Brief
+                                </a>
+                            </th>
+                        @endhasrole
                     </tr>
                 </thead>
                 <tbody>
@@ -36,19 +38,21 @@
                             <td>{{$brief->name}}</td>
                             <td class="text-center">{{$brief->questions()->count()}}</td>
                             <td class="text-center">{{$brief->clientsAssigned()->count()}}</td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <a class="btn btn-warning btn-xs" href="{{ route('brief.duplicate', $brief->id) }}"
-                                        onclick="event.preventDefault(); document.getElementById('duplicate-form-{{$brief->id}}').submit();">
-                                        Duplicar Brief
-                                    </a>
-                                    <a class="btn btn-success btn-xs" href="{{ route("brief.edit", $brief->id) }}">Editar</a>
-                                </div>
+                            @hasrole('admin')
+                                <td class="text-right">
+                                    <div class="btn-group">
+                                        <a class="btn btn-warning btn-xs" href="{{ route('brief.duplicate', $brief->id) }}"
+                                            onclick="event.preventDefault(); document.getElementById('duplicate-form-{{$brief->id}}').submit();">
+                                            Duplicar Brief
+                                        </a>
+                                        <a class="btn btn-success btn-xs" href="{{ route("brief.edit", $brief->id) }}">Editar</a>
+                                    </div>
 
-                                <form id="duplicate-form-{{$brief->id}}" action="{{ route('brief.duplicate', $brief->id) }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </td>
+                                    <form id="duplicate-form-{{$brief->id}}" action="{{ route('brief.duplicate', $brief->id) }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </td>
+                            @endhasrole
                         </tr>
 
                     @endforeach

@@ -8,7 +8,9 @@
 
 @section('content')
 
-    @include('admin.brief-assign.partials.assign-form')
+    @hasrole('admin')
+        @include('admin.brief-assign.partials.assign-form')
+    @endhasrole
 
     <div class="card">
         <div class="card-header">

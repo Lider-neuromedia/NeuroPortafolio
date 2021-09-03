@@ -21,11 +21,13 @@
                     <tr>
                         <th>Nombre</th>
                         <th class="text-center">Proyectos</th>
-                        <th class="text-right">
-                            <a class="btn btn-xs btn-primary" href="{{ route('categories.create') }}">
-                                Crear Categoría
-                            </a>
-                        </th>
+                        @hasrole('admin')
+                            <th class="text-right">
+                                <a class="btn btn-xs btn-primary" href="{{ route('categories.create') }}">
+                                    Crear Categoría
+                                </a>
+                            </th>
+                        @endhasrole
                     </tr>
                 </thead>
                 <tbody>
@@ -35,9 +37,11 @@
                         <tr>
                             <td>{{$category->name}}</td>
                             <td class="text-center">{{$category->projects()->count()}}</td>
-                            <td class="text-right">
-                                <a class="btn btn-xs btn-success" href="{{ route("categories.edit", $category->id) }}">Editar</a>
-                            </td>
+                            @hasrole('admin')
+                                <td class="text-right">
+                                    <a class="btn btn-xs btn-success" href="{{ route("categories.edit", $category->id) }}">Editar</a>
+                                </td>
+                            @endhasrole
                         </tr>
 
                     @endforeach

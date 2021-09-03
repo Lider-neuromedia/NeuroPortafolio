@@ -22,26 +22,28 @@
                         <span>Estado: {{ $brief_assign->status_format }}</span>
                     </div>
 
-                    @if ($brief_assign->brief)
-                        <div class="card-footer text-right">
-                            <form action="{{route('brief-assign.update', $brief_assign->id)}}" method="post">
-                                @csrf
-                                @method('PUT')
+                    @hasrole('admin')
+                        @if ($brief_assign->brief)
+                            <div class="card-footer text-right">
+                                <form action="{{route('brief-assign.update', $brief_assign->id)}}" method="post">
+                                    @csrf
+                                    @method('PUT')
 
-                                @if ($brief_assign->is_completed)
-                                    <input type="hidden" name="status" value="{{\App\ClientBrief::STATUS_PENDING}}">
-                                    <button class="btn btn-sm btn-success" type="submit">Abrir Formulario</button>
-                                @else
-                                    <input type="hidden" name="status" value="{{\App\ClientBrief::STATUS_COMPLETED}}">
-                                    <button class="btn btn-sm btn-success" type="submit">Cerrar Formulario</button>
-                                @endif
+                                    @if ($brief_assign->is_completed)
+                                        <input type="hidden" name="status" value="{{\App\ClientBrief::STATUS_PENDING}}">
+                                        <button class="btn btn-sm btn-success" type="submit">Abrir Formulario</button>
+                                    @else
+                                        <input type="hidden" name="status" value="{{\App\ClientBrief::STATUS_COMPLETED}}">
+                                        <button class="btn btn-sm btn-success" type="submit">Cerrar Formulario</button>
+                                    @endif
 
-                                <a class="btn btn-primary btn-sm ml-3" href="{{$brief_assign->url}}" title="{{$brief_assign->url}}" target="_blank">
-                                    Enlace Público
-                                </a>
-                            </form>
-                        </div>
-                    @endif
+                                    <a class="btn btn-primary btn-sm ml-3" href="{{$brief_assign->url}}" title="{{$brief_assign->url}}" target="_blank">
+                                        Enlace Público
+                                    </a>
+                                </form>
+                            </div>
+                        @endif
+                    @endhasrole
                 </div>
 
                 @foreach ($brief_assign->answers as $answer)
@@ -63,11 +65,13 @@
 
                 {{-- Formulario de borrar --}}
 
-                @include('admin.partials.delete', [
-                    'id_form' => 'delete-brief-assign-form',
-                    'label' => 'Borrar Brief Asignado',
-                    'route' => route('brief-assign.destroy', $brief_assign->id)
-                ])
+                @hasrole('admin')
+                    @include('admin.partials.delete', [
+                        'id_form' => 'delete-brief-assign-form',
+                        'label' => 'Borrar Brief Asignado',
+                        'route' => route('brief-assign.destroy', $brief_assign->id)
+                    ])
+                @endhasrole
 
             </div>
         </div>

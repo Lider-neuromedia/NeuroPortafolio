@@ -19,11 +19,13 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th class="text-right">
-                            <a class="btn btn-xs btn-primary" href="{{ route('clients.create') }}">
-                                Crear Cliente
-                            </a>
-                        </th>
+                        @hasrole('admin')
+                            <th class="text-right">
+                                <a class="btn btn-xs btn-primary" href="{{ route('clients.create') }}">
+                                    Crear Cliente
+                                </a>
+                            </th>
+                        @endhasrole
                     </tr>
                 </thead>
                 <tbody>
@@ -32,9 +34,11 @@
 
                         <tr>
                             <td>{{$client->name}}</td>
-                            <td class="text-right">
-                                <a class="btn btn-xs btn-success" href="{{ route("clients.edit", $client->id) }}">Editar</a>
-                            </td>
+                            @hasrole('admin')
+                                <td class="text-right">
+                                    <a class="btn btn-xs btn-success" href="{{ route("clients.edit", $client->id) }}">Editar</a>
+                                </td>
+                            @endhasrole
                         </tr>
 
                     @endforeach
