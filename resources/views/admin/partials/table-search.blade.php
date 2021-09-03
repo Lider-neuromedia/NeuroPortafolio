@@ -1,4 +1,4 @@
-<form method="get" action="{{ url('admin/brief-assign') }}">
+<form method="get" action="{{ $search_route }}">
     <div class="input-group input-group-sm" style="width: 200px;">
         <input class="form-control float-right" placeholder="Buscar" type="search" name="s" value="{{$search}}">
         <div class="input-group-append">

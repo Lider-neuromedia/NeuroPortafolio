@@ -13,7 +13,7 @@
     <div class="card">
         <div class="card-header">
             <div class="card-tools">
-                @include('admin.brief-assign.partials.search')
+                @include('admin.partials.table-search', ['search_route' => route('brief-assign.index')])
             </div>
         </div>
         <div class="card-body table-responsive p-0">

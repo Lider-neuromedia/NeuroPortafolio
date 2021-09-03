@@ -8,10 +8,16 @@ use Illuminate\Http\Request;
 
 class LinksController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $links = Link::orderBy('slug', 'asc')->paginate(15);
-        return view('admin.links.index', compact('links'));
+        $search = $request->get('s');
+        $links = Link::query()
+            ->when($search, function ($q) use ($search) {
+                $q->where('slug', 'like', "%$search%");
+            })
+            ->orderBy('slug', 'asc')
+            ->paginate(15);
+        return view('admin.links.index', compact('links', 'search'));
     }
 
     public function create()
