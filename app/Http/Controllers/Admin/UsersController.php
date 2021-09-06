@@ -24,8 +24,9 @@ class UsersController extends Controller
 
     public function create()
     {
-        $user = new User();
-        return view('admin.users.create', compact('user'));
+        $roles = User::roles();
+        $user = new User(['roles' => [User::ROLE_VIEWER]]);
+        return view('admin.users.create', compact('user', 'roles'));
     }
 
     public function store(UserRequest $request)
@@ -40,7 +41,8 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));
+        $roles = User::roles();
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     public function update(UserRequest $request, User $user)
@@ -66,7 +68,7 @@ class UsersController extends Controller
 
             \DB::beginTransaction();
 
-            $data = $request->only('name', 'email');
+            $data = $request->only('name', 'email', 'roles');
 
             if ($request->has('password') && $request->get('password')) {
                 $data['password'] = \Hash::make($request->get('password'));

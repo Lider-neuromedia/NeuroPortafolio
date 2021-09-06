@@ -25,6 +25,11 @@ class User extends Authenticatable
         'roles' => 'array',
     ];
 
+    public function getRolesDescriptionAttribute()
+    {
+        return implode(", ", $this->roles);
+    }
+
     public function getRoleDescriptionAttribute()
     {
         return self::roles()[$this->role];

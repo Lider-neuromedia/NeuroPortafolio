@@ -20,6 +20,7 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Correo</th>
+                        <th>Roles</th>
                         <th class="text-right">
                             <a class="btn btn-xs btn-primary" href="{{ route('users.create') }}">
                                 Crear Usuario
@@ -34,6 +35,7 @@
                         <tr>
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
+                            <td>{{$user->roles_description}}</td>
                             <td class="text-right">
                                 <a class="btn btn-xs btn-success" href="{{ route("users.edit", $user->id) }}">Editar</a>
                             </td>

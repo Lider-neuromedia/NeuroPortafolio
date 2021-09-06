@@ -19,7 +19,8 @@
         type="password"
         name="password"
         id="password"
-        @if ($is_required)  @endif>
+        minlength="8"
+        @if ($is_required) required @endif>
 
     @error('password')
         <span class="invalid-feedback" role="alert">
@@ -39,7 +40,7 @@
         type="password"
         name="password_confirmation"
         id="password_confirmation"
-        @if ($is_required)  @endif>
+        @if ($is_required) required @endif>
 
     @error('password_confirmation')
         <span class="invalid-feedback" role="alert">

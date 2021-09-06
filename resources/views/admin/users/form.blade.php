@@ -1,5 +1,6 @@
 @include('admin.users.fields.name')
 @include('admin.users.fields.email')
+@include('admin.users.fields.role')
 @include('admin.users.fields.password')
 
 <div class="row">

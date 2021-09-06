@@ -1,6 +1,7 @@
 <div class="form-group">
     <label class="form-label" for="email">*Correo</label>
     <input
+        required
         class="form-control @error('email') is-invalid @enderror"
         type="email"
         name="email"

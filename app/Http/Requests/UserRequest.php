@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -23,10 +24,13 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
+        $roles = implode(',', array_keys(User::roles()));
         $validation = [
             'name' => ['required', 'string', 'max:100', 'min:5'],
             'email' => ['required', 'string', 'email', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'roles' => ['required', 'array', 'min:1'],
+            'roles.*' => ['required', 'string', "in:$roles"],
         ];
 
         if ($this->has('id')) {

@@ -1,6 +1,7 @@
 <div class="form-group">
     <label class="form-label" for="name">*Nombre</label>
     <input
+        required
         class="form-control @error('name') is-invalid @enderror"
         type="text"
         name="name"
