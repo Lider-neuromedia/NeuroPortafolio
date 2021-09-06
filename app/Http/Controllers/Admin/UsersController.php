@@ -56,6 +56,10 @@ class UsersController extends Controller
             session()->flash('message-error', "El registro no puede ser borrado.");
             return redirect()->back();
         }
+        if (User::count() == 1) {
+            session()->flash('message-error', "El sistema no puede quedar sin usuarios.");
+            return redirect()->back();
+        }
 
         $user->delete();
         session()->flash('message', "Registro borrado.");
