@@ -25,7 +25,7 @@
                 </select>
 
                 <input class="flex-grow-1 form-control mx-2" type="search" name="s" value="{{$search}}" placeholder="Buscar proyectos" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">
+                <button class="btn btn-outline-primary" type="submit">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </button>
             </form>
@@ -67,7 +67,7 @@
                                 <div class="d-flex justify-content-center" style="gap: 1rem;">
                                     <form action="{{ route('link-creation.add', $project) }}" method="post">
                                         @csrf
-                                        <input class="btn btn-success" type="submit" value="Seleccionar">
+                                        <input class="btn btn-primary" type="submit" value="Seleccionar">
                                     </form>
                                 </div>
 
@@ -75,8 +75,14 @@
 
                                 <div class="text-center">
                                     <a
+                                        href="{{ route('project.show', $project->slug) }}"
+                                        class="btn btn-outline-primary"
+                                        role="button"
+                                        target="_blank">
+                                        Ver</a>
+                                    <a
                                         href="{{ route('projects.edit', $project) }}"
-                                        class="btn btn-outline-success"
+                                        class="btn btn-outline-primary"
                                         role="button">
                                         Editar</a>
                                 </div>

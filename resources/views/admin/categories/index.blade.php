@@ -39,7 +39,7 @@
                             <td class="text-center">{{$category->projects()->count()}}</td>
                             @hasrole('admin')
                                 <td class="text-right">
-                                    <a class="btn btn-xs btn-success" href="{{ route("categories.edit", $category->id) }}">Editar</a>
+                                    <a class="btn btn-xs btn-outline-primary" href="{{ route("categories.edit", $category->id) }}">Editar</a>
                                 </td>
                             @endhasrole
                         </tr>

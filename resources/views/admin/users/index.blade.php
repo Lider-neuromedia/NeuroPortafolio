@@ -37,7 +37,7 @@
                             <td>{{$user->email}}</td>
                             <td>{{$user->roles_description}}</td>
                             <td class="text-right">
-                                <a class="btn btn-xs btn-success" href="{{ route("users.edit", $user->id) }}">Editar</a>
+                                <a class="btn btn-xs btn-outline-primary" href="{{ route("users.edit", $user->id) }}">Editar</a>
                             </td>
                         </tr>
 

@@ -36,7 +36,7 @@
                             <td>{{$client->name}}</td>
                             @hasrole('admin')
                                 <td class="text-right">
-                                    <a class="btn btn-xs btn-success" href="{{ route("clients.edit", $client->id) }}">Editar</a>
+                                    <a class="btn btn-xs btn-outline-primary" href="{{ route("clients.edit", $client->id) }}">Editar</a>
                                 </td>
                             @endhasrole
                         </tr>

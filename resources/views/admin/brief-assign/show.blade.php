@@ -31,13 +31,13 @@
 
                                     @if ($brief_assign->is_completed)
                                         <input type="hidden" name="status" value="{{\App\ClientBrief::STATUS_PENDING}}">
-                                        <button class="btn btn-sm btn-success" type="submit">Abrir Formulario</button>
+                                        <button class="btn btn-sm btn-primary" type="submit">Abrir Formulario</button>
                                     @else
                                         <input type="hidden" name="status" value="{{\App\ClientBrief::STATUS_COMPLETED}}">
-                                        <button class="btn btn-sm btn-success" type="submit">Cerrar Formulario</button>
+                                        <button class="btn btn-sm btn-dark" type="submit">Cerrar Formulario</button>
                                     @endif
 
-                                    <a class="btn btn-primary btn-sm ml-3" href="{{$brief_assign->url}}" title="{{$brief_assign->url}}" target="_blank">
+                                    <a class="btn btn-primary btn-sm" href="{{$brief_assign->url}}" title="{{$brief_assign->url}}" target="_blank">
                                         Enlace Público
                                     </a>
                                 </form>

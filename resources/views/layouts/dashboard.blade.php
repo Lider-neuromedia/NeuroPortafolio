@@ -22,11 +22,6 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-        <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake img-circle bg-white" src="{{url('images/logo.png')}}" height="60" width="60">
-        </div>
-
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <ul class="navbar-nav">
@@ -61,23 +56,23 @@
                             $current = url()->current();
                         @endphp
 
-                        <li class="nav-header text-warning"><span>PORTAFOLIO</span></li>
+                        <li class="nav-header text-primary"><span>PORTAFOLIO</span></li>
+                        <li class="nav-item"><a class="nav-link @if($current == route('categories.index')) active @endif" href="{{ route('categories.index') }}"><i class="nav-icon far fa fa-tag"></i> <p>Categorías</p></a></li>
                         <li class="nav-item"><a class="nav-link @if(url()->full() == route('projects.index')) active @endif" href="{{ route('projects.index') }}"><i class="nav-icon far fa fa-briefcase"></i> <p>Portafolio</p></a></li>
                         <li class="nav-item"><a class="nav-link @if($current == route('links.index')) active @endif" href="{{ route('links.index') }}"><i class="nav-icon far fa fa-link"></i> <p>Enlaces</p></a></li>
-                        <li class="nav-item"><a class="nav-link @if($current == route('categories.index')) active @endif" href="{{ route('categories.index') }}"><i class="nav-icon far fa fa-tag"></i> <p>Categorías</p></a></li>
 
-                        <li class="nav-header text-warning"><span>BRIEF</span></li>
-                        <li class="nav-item"><a class="nav-link @if($current == route('brief-assign.index')) active @endif" href="{{ route('brief-assign.index') }}"><i class="nav-icon far fa fa-id-card-o"></i> <p>Brief Asignados</p></a></li>
+                        <li class="nav-header text-primary"><span>BRIEF</span></li>
                         <li class="nav-item"><a class="nav-link @if($current == route('brief.index'))) active @endif" href="{{ route('brief.index') }}"><i class="nav-icon far fa fa-list-ol"></i> <p>Briefs</p></a></li>
                         <li class="nav-item"><a class="nav-link @if($current == route('clients.index'))) active @endif" href="{{ route('clients.index') }}"><i class="nav-icon far fa fa-users"></i> <p>Clientes</p></a></li>
+                        <li class="nav-item"><a class="nav-link @if($current == route('brief-assign.index')) active @endif" href="{{ route('brief-assign.index') }}"><i class="nav-icon far fa fa-id-card-o"></i> <p>Brief Asignados</p></a></li>
 
-                        <li class="nav-header text-warning"><span>GRÁFICAS</span></li>
+                        <li class="nav-header text-primary"><span>GRÁFICAS</span></li>
                         <li class="nav-item"><a class="nav-link @if($current == route('charts.monthly')) active @endif" href="{{ route('charts.monthly') }}"><i class="nav-icon far fa fa-area-chart"></i> <p>Meses</p></a></li>
                         <li class="nav-item"><a class="nav-link @if($current == route('charts.events'))) active @endif" href="{{ route('charts.events') }}"><i class="nav-icon far fa fa-table"></i> <p>Eventos</p></a></li>
 
                         @hasrole('admin')
 
-                            <li class="nav-header text-warning"><span>ADMINISTRACIÓN</span></li>
+                            <li class="nav-header text-primary"><span>ADMINISTRACIÓN</span></li>
                             <li class="nav-item"><a class="nav-link @if($current == route('users.index'))) active @endif" href="{{ route('users.index') }}"><i class="nav-icon far fa fa-user-circle-o"></i> <p>Usuarios</p></a></li>
 
                         @endhasrole

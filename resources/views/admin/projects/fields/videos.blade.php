@@ -1,7 +1,7 @@
 <div class="form-group">
     <label class="form-label d-flex justify-content-between align-middle">
         <span>Videos <small>(url de youtube)</small></span>
-        <button type="button" class="btn btn-success btn-sm" title="Agregar Video" @@click="addVideo">
+        <button type="button" class="btn btn-primary btn-sm" title="Agregar Video" @@click="addVideo">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
     </label>

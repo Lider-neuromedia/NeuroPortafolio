@@ -4,7 +4,7 @@
 
     <div class="d-flex justify-content-between align-middle mt-5">
         <h4>Preguntas</h4>
-        <button type="button" class="btn btn-sm btn-success" title="Agregar Pregunta" @@click="addQuestion">
+        <button type="button" class="btn btn-sm btn-primary" title="Agregar Pregunta" @@click="addQuestion">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
     </div>
@@ -21,13 +21,13 @@
             </div>
             <div class="card-tools">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-warning" title="Bajar posición" @@click="move(index, false)">
+                    <button type="button" class="btn btn-sm btn-outline-primary" title="Bajar posición" @@click="move(index, false)">
                         <i class="fa fa-arrow-down" aria-hidden="true"></i>
                     </button>
-                    <button type="button" class="btn btn-sm btn-warning" title="Subir posición" @@click="move(index, true)">
+                    <button type="button" class="btn btn-sm btn-outline-primary" title="Subir posición" @@click="move(index, true)">
                         <i class="fa fa-arrow-up" aria-hidden="true"></i>
                     </button>
-                    <button type="button" class="btn btn-sm btn-danger" title="Borrar pregunta" @@click="removeQuestion(index)">
+                    <button type="button" class="btn btn-sm btn-dark" title="Borrar pregunta" @@click="removeQuestion(index)">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -41,7 +41,7 @@
 
                     {{-- Descripción de la pregunta --}}
                     <div class="form-group">
-                        <label :for="`questions[${index}][question]`" class="form-label">*Descripción</label>
+                        <label :for="`questions[${index}][question]`" class="form-label">*Enunciado de la pregunta</label>
                         <input
                             :id="`questions[${index}][question]`"
                             :name="`questions[${index}][question]`"
@@ -70,7 +70,7 @@
                     <div class="form-group" v-if="question.type == 'seleccion_multiple' || question.type == 'seleccion_unica'">
                         <div class="d-flex justify-content-between align-middle">
                             <label>*Opciones</label>
-                            <button type="button" class="btn btn-sm btn-success" title="Agregar opción" @@click="addOption(index)">
+                            <button type="button" class="btn btn-sm btn-primary" title="Agregar opción" @@click="addOption(index)">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -81,7 +81,7 @@
                                 v-model="question.options[kndex]"
                                 class="form-control" type="text" maxlength="250" required>
                             <button type="button" class="btn btn-sm btn-dark ml-1" title="Borrar opción" @@click="removeOption(index, kndex)">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                <i class="fa fa-minus" aria-hidden="true"></i>
                             </button>
                         </div>
                     </div>

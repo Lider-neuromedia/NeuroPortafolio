@@ -13,13 +13,13 @@
     <div class="row">
         <div class="col-12 col-lg-6">
             @include('admin.projects.fields.logo')
+            @include('admin.projects.fields.videos')
         </div>
         <div class="col-12 col-lg-6">
-            @include('admin.projects.fields.videos')
+            @include('admin.projects.fields.images')
         </div>
     </div>
 
-    @include('admin.projects.fields.images')
 
     <div class="row">
         <div class="col-md-12 my-5">

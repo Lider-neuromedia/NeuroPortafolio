@@ -25,6 +25,12 @@ Route::get('brief/{slug}', 'BriefController@brief')->name('brief.fill');
 Route::post('brief/{slug}', 'BriefController@store')->name('brief.save');
 Route::post('brief/{slug}/complete', 'BriefController@complete')->name('brief.complete');
 
+Route::middleware('auth')->group(function () {
+
+    Route::get('project/{project}', 'ProjectsController@project')->name('project.show');
+
+});
+
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function () {
 
     Route::middleware('role:admin')->resource('users', 'UsersController', ['except' => ['show']]);

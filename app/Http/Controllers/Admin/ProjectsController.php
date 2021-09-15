@@ -224,7 +224,7 @@ class ProjectsController extends Controller
             $request->session()->forget('link.projects');
             session()->flash('message', "Registro guardado correctamente.");
 
-            return redirect()->action('Admin\ProjectsController@index');
+            return redirect()->action('Admin\LinksController@index');
 
         } catch (\Exception $ex) {
             \Log::info($ex->getMessage());

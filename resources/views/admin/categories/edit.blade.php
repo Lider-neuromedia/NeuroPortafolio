@@ -27,7 +27,8 @@
                 @if ($category->projects()->count() > 0)
 
                     <div class="alert alert-warning text-center">
-                        Esta categoría no puede ser eliminada hasta que no tenga proyectos asignados.
+                        Esta categoría no puede ser eliminada hasta que no tenga proyectos asignados.<br>
+                        Tiene <strong>{{ $category->projects()->count() }}</strong> proyectos.
                     </div>
 
                 @else

@@ -29,7 +29,7 @@
                     <div class="card-header">
                         <div class="card-title">Duplicar Brief</div>
                         <div class="card-tools">
-                            <a class="btn btn-sm btn-warning" href="{{ route('brief.duplicate', $brief->id) }}"
+                            <a class="btn btn-sm btn-primary" href="{{ route('brief.duplicate', $brief->id) }}"
                                 onclick="event.preventDefault(); document.getElementById('duplicate-form-{{$brief->id}}').submit();">
                                 Duplicar
                             </a>
@@ -50,7 +50,7 @@
                 @if ($brief->clientsAssigned()->notCompleted()->count() > 0)
 
                     <div class="alert alert-warning text-center">
-                        Este brief está asignado a {{$count}} clientes que aún no han terminado de llenar el formulario.
+                        No puede borrar este brief porque está asignado a <strong>{{$count}}</strong> clientes que aún no han terminado de llenar el formulario.
                     </div>
 
                 @else

@@ -1,5 +1,5 @@
-<div class="card border-success mb-3">
-    <div class="card-body text-success text-center font-weight-bold">
+<div class="card border-primary mb-3">
+    <div class="card-body text-primary text-center font-weight-bold">
         Formulario completado y cerrado
     </div>
 </div>

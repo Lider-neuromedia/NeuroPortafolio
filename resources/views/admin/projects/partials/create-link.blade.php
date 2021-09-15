@@ -14,7 +14,7 @@
 
                             @if (count($link_projects) == 0)
                                 <div class="alert alert-warning">
-                                    No ha seleccionado ningún proyecto.
+                                    No ha seleccionado ningún proyecto. Puede seleccionarlos abajo, similar a un carrito de compras.
                                 </div>
                             @endif
 
@@ -24,7 +24,9 @@
 
                                     <form id="lrform" action="{{ route('link-creation.remove', $lproject) }}" method="post">
                                         @csrf
-                                        <button class="btn btn-sm btn-danger btn-pill" type="submit">x</button>
+                                        <button class="btn btn-sm btn-dark btn-pill" type="submit" title="Quitar proyecto">
+                                            <i class="fa fa-minus" aria-hidden="true"></i>
+                                        </button>
                                     </form>
                                 </li>
                             @endforeach
@@ -37,7 +39,7 @@
                             @csrf
 
                             <div class="form-group">
-                                <label class="form-label" for="slug">Código único</label>
+                                <label class="form-label" for="slug">Código o nombre único del enlace</label>
 
                                 <input
                                     class="form-control @error('slug') is-invalid @enderror"
@@ -55,10 +57,10 @@
                             </div>
 
                             <div class="d-flex justify-content-between" style="gap: 1rem;">
-                                <a class="btn btn-danger" href="{{ route('link-creation.clean') }}">Cancelar</a>
+                                <a class="btn btn-dark" href="{{ route('link-creation.clean') }}">Cancelar</a>
                                 <input
                                     type="submit"
-                                    class="btn btn-success"
+                                    class="btn btn-primary"
                                     value="Crear Enlace">
                             </div>
                         </form>

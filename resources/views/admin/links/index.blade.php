@@ -83,7 +83,11 @@
                             <td colspan="{{auth()->user()->hasrole('admin') ? 4 : 3}}">
                                 <ul class="list-group">
                                     @foreach ($link->projects as $project)
-                                        <li class="list-group-item">{{$project->title}}</li>
+                                        <a href="{{ route('project.show', $project->slug) }}"
+                                            class="list-group-item list-group-item-action"
+                                            aria-current="true">
+                                            {{$project->title}}
+                                        </a>
                                     @endforeach
                                 </ul>
                             </td>

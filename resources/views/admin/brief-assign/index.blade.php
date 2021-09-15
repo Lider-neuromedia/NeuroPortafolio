@@ -44,7 +44,7 @@
                                 </a>
                             </td>
                             <td class="text-right">
-                                <a class="btn btn-success btn-xs" href="{{ route("brief-assign.show", $cb->id) }}">Ver</a>
+                                <a class="btn btn-outline-primary btn-xs" href="{{ route("brief-assign.show", $cb->id) }}">Ver</a>
                             </td>
                         </tr>
 

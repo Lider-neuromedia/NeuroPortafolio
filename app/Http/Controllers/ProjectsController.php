@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Link;
+use App\Project;
 
 class ProjectsController extends Controller
 {
@@ -29,6 +30,12 @@ class ProjectsController extends Controller
             ->whereSlug($project)
             ->firstOrFail();
 
+        return view('project', compact('project'));
+    }
+
+    public function project(String $project)
+    {
+        $project = Project::whereSlug($project)->firstOrFail();
         return view('project', compact('project'));
     }
 }

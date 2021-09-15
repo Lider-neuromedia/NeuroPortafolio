@@ -40,13 +40,11 @@
                             <td class="text-center">{{$brief->clientsAssigned()->count()}}</td>
                             @hasrole('admin')
                                 <td class="text-right">
-                                    <div class="btn-group">
-                                        <a class="btn btn-warning btn-xs" href="{{ route('brief.duplicate', $brief->id) }}"
-                                            onclick="event.preventDefault(); document.getElementById('duplicate-form-{{$brief->id}}').submit();">
-                                            Duplicar Brief
-                                        </a>
-                                        <a class="btn btn-success btn-xs" href="{{ route("brief.edit", $brief->id) }}">Editar</a>
-                                    </div>
+                                    <a class="btn btn-outline-primary btn-xs" href="{{ route('brief.duplicate', $brief->id) }}"
+                                        onclick="event.preventDefault(); document.getElementById('duplicate-form-{{$brief->id}}').submit();">
+                                        Duplicar Brief
+                                    </a>
+                                    <a class="btn btn-outline-primary btn-xs" href="{{ route("brief.edit", $brief->id) }}">Editar</a>
 
                                     <form id="duplicate-form-{{$brief->id}}" action="{{ route('brief.duplicate', $brief->id) }}" method="POST" style="display: none;">
                                         @csrf
