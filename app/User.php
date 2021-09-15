@@ -30,11 +30,6 @@ class User extends Authenticatable
         return implode(", ", $this->roles);
     }
 
-    public function getRoleDescriptionAttribute()
-    {
-        return self::roles()[$this->role];
-    }
-
     public function hasRole($role)
     {
         return in_array($role, $this->roles);
