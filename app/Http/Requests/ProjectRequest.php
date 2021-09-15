@@ -23,6 +23,7 @@ class ProjectRequest extends FormRequest
      */
     public function rules()
     {
+        $mb_size = 7812; // 8mb
         $validation = [
             'description' => ['nullable'],
             'categories' => ['required', 'array', 'min:1'],
@@ -33,14 +34,14 @@ class ProjectRequest extends FormRequest
 
         if ($this->get('id')) {
             $validation['title'] = ['required', 'string', 'max:100', "unique:projects,title," . $this->get('id')];
-            $validation['logo'] = ['nullable', 'image', 'dimensions:min_width=400,min_height=400', 'max:2048'];
+            $validation['logo'] = ['nullable', 'file', 'dimensions:min_width=400,min_height=400', "max:$mb_size", 'mimes:jpeg,png,jpg,gif'];
             $validation['images'] = ['nullable', 'array'];
-            $validation['images.*'] = ['required', 'image', 'dimensions:min_width=400,min_height=400', 'max:2048'];
+            $validation['images.*'] = ['required', 'file', 'dimensions:min_width=400,min_height=400', "max:$mb_size", 'mimes:jpeg,png,jpg,gif'];
         } else {
             $validation['title'] = ['required', 'string', 'max:100', 'unique:projects,title'];
-            $validation['logo'] = ['required', 'image', 'dimensions:min_width=400,min_height=400', 'max:2048'];
+            $validation['logo'] = ['required', 'file', 'dimensions:min_width=400,min_height=400', "max:$mb_size", 'mimes:jpeg,png,jpg,gif'];
             $validation['images'] = ['required', 'array', 'min:1'];
-            $validation['images.*'] = ['required', 'image', 'dimensions:min_width=400,min_height=400', 'max:2048'];
+            $validation['images.*'] = ['required', 'file', 'dimensions:min_width=400,min_height=400', "max:$mb_size", 'mimes:jpeg,png,jpg,gif'];
         }
 
         return $validation;

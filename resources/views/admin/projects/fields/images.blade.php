@@ -2,7 +2,7 @@
 
     <div class="col-12">
         <label class="form-label d-flex justify-content-between align-middle">
-            <span>Imagenes <small>(400px x 400px mínimo)</small></span>
+            <span>Imagenes <small class="font-italic">(400 x 400 min) (8mb max)</small></span>
 
             <div class="">
                 <button type="button" class="btn btn-dark btn-sm" title="Remover Imagen" @@click="removeImage" :disabled="newImages.length == 0">

@@ -1,6 +1,6 @@
 <div class="form-group @error('logo') has-error has-feedback @enderror">
     <label class="form-label" for="logo">
-        *Logo <small>(400px x 400px mínimo)</small>
+        *Logo <small class="font-italic">(400x400 min) (8mb max)</small>
     </label>
 
     <div class="custom-file @error('logo') is-invalid @enderror">
