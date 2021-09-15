@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function () {
 
+    Route::post('configure/pagination/{paginate}', 'ConfigurationController@configurePagination')->name('config.paginate');
+
     Route::middleware('role:admin')->resource('users', 'UsersController', ['except' => ['show']]);
 
     Route::middleware('role:admin')->resource('projects', 'ProjectsController', ['except' => ['index', 'show']]);

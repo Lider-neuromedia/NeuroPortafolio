@@ -51,7 +51,7 @@ class ProjectsController extends Controller
                     $q->where('categories.id', $category);
                 });
             })
-            ->paginate(9);
+            ->paginate(session('paginate') ?: 20);
 
         return view('admin.projects.index', compact('projects', 'categories', 'search', 'category', 'create_link', 'link_projects'));
     }

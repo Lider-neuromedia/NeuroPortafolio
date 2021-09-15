@@ -16,7 +16,7 @@ class LinksController extends Controller
                 $q->where('slug', 'like', "%$search%");
             })
             ->orderBy('created_at', 'desc')
-            ->paginate(15);
+            ->paginate(session('paginate') ?: 20);
         return view('admin.links.index', compact('links', 'search'));
     }
 

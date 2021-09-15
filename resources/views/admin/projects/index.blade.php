@@ -111,8 +111,9 @@
                 }
             @endphp
 
-            <div class="table-responsive">
+            <div class="table-responsive d-flex justify-content-end">
                 {{ $projects->appends($appends)->links() }}
+                @include('layouts.partials.pagination-steps')
             </div>
 
         </div>

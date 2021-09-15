@@ -19,7 +19,7 @@ class BriefController extends Controller
                 $q->where('name', 'like', "%$search%");
             })
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(session('paginate') ?: 20);
         return view('admin.brief.index', compact('briefs', 'search'));
     }
 

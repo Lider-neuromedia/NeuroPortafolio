@@ -50,8 +50,9 @@
             </table>
 
         </div>
-        <div class="card-footer d-flex justify-content-center">
+        <div class="card-footer d-flex justify-content-end">
             {{ $categories->appends(['s' => $search])->links() }}
+            @include('layouts.partials.pagination-steps')
         </div>
     </div>
 

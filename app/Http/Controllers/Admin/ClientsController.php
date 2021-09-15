@@ -17,7 +17,7 @@ class ClientsController extends Controller
                 $q->where('name', 'like', "%$search%");
             })
             ->orderBy('name', 'asc')
-            ->paginate(10);
+            ->paginate(session('paginate') ?: 20);
         return view('admin.clients.index', compact('clients', 'search'));
     }
 
