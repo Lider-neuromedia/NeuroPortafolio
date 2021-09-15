@@ -15,7 +15,7 @@ class LinksController extends Controller
             ->when($search, function ($q) use ($search) {
                 $q->where('slug', 'like', "%$search%");
             })
-            ->orderBy('slug', 'asc')
+            ->orderBy('created_at', 'desc')
             ->paginate(15);
         return view('admin.links.index', compact('links', 'search'));
     }

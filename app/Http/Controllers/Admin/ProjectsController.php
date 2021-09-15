@@ -39,7 +39,7 @@ class ProjectsController extends Controller
             });
 
         $projects = Project::query()
-            ->orderBy('title', 'asc')
+            ->orderBy('created_at', 'desc')
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($q) use ($search) {
                     $q->where('title', 'like', "%$search%")

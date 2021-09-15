@@ -16,7 +16,7 @@ class CategoriesController extends Controller
             ->when($search, function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%");
             })
-            ->orderBy('name', 'asc')
+            ->orderBy('created_at', 'desc')
             ->paginate(10);
         return view('admin.categories.index', compact('categories', 'search'));
     }
