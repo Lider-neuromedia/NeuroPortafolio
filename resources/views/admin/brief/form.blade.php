@@ -4,7 +4,12 @@
 
     <div class="d-flex justify-content-between align-middle mt-5">
         <h4>Preguntas</h4>
-        <button type="button" class="btn btn-sm btn-primary" title="Agregar Pregunta" @@click="addQuestion">
+        <button
+            @@click="addQuestion"
+            type="button"
+            class="btn btn-lg btn-primary"
+            title="Agregar pregunta al final"
+            style="position: fixed; bottom: 4rem; right: 1rem; z-index:10000;">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
     </div>

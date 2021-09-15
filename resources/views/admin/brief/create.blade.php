@@ -8,20 +8,18 @@
 @endsection
 
 @section('content')
-    <div class="container">
 
-        <div class="row justify-content-center mb-5">
-            <div class="col-12 col-md-8">
+    <div class="row justify-content-center mb-5">
+        <div class="col-12 col-md-8">
 
-                <form action="{{ route('brief.store', $brief) }}" method="post">
-                    @csrf
-                    @include('admin.brief.form')
-                </form>
+            <form action="{{ route('brief.store', $brief) }}" method="post">
+                @csrf
+                @include('admin.brief.form')
+            </form>
 
-            </div>
         </div>
-
     </div>
+
 @endsection
 
 @section('scripts')
