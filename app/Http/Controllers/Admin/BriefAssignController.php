@@ -7,6 +7,8 @@ use App\Client;
 use App\ClientBrief;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AssignBriefRequest;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Http\Request;
 use League\CommonMark\CommonMarkConverter;
 
@@ -111,5 +113,42 @@ class BriefAssignController extends Controller
         $brief_assign->delete();
         session()->flash('message', "Registro borrado.");
         return redirect()->action('Admin\BriefAssignController@index');
+    }
+
+    public function generatePDF(ClientBrief $brief_assign)
+    {
+        $converter = new CommonMarkConverter();
+
+        $brief_assign->answers->map(function ($answer) use ($converter) {
+            if (isset($answer->answer[0]) && strpos($answer->answer[0], "\n") !== false) {
+                $answer->answer = [$converter->convertToHtml($answer->answer[0])];
+            }
+            return $answer;
+        });
+
+        $options = new Options();
+        $options->set('defaultFont', 'Helvetica');
+        $dompdf = new Dompdf($options);
+        $content = "";
+
+        $title = ($brief_assign->brief ? $brief_assign->brief->name : "Brief") . " / " . $brief_assign->client->name;
+
+        $content = "<h1>$title</h1><br>";
+
+        foreach ($brief_assign->answers as $answer) {
+            $content .= "<p><strong>{$answer->question}</strong></p>";
+            $content .= "<p>";
+
+            foreach ($answer->answer as $answer) {
+                $content .= "$answer<br>";
+            }
+
+            $content .= "</p>";
+        }
+
+        $dompdf->loadHtml($content);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        $dompdf->stream();
     }
 }

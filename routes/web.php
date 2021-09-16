@@ -56,6 +56,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     Route::middleware('role:admin')->resource('brief-assign', 'BriefAssignController', ['except' => ['index', 'create', 'edit', 'show']]);
     Route::middleware('role:viewer')->get('/brief-assign', 'BriefAssignController@index')->name('brief-assign.index');
     Route::middleware('role:viewer')->get('/brief-assign/{brief_assign}', 'BriefAssignController@show')->name('brief-assign.show');
+    Route::middleware('role:viewer')->get('/brief-assign/{brief_assign}/pdf', 'BriefAssignController@generatePDF')->name('brief-assign.pdf');
 
     Route::middleware('role:admin')->prefix('create-link')->group(function () {
 

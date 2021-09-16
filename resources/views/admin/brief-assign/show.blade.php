@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @php
-    $title = ($brief_assign->brief ? $brief_assign->brief->name : "Brief Borrado") . " / " . $brief_assign->client->name;
+    $title = ($brief_assign->brief ? $brief_assign->brief->name : "Brief") . " / " . $brief_assign->client->name;
 @endphp
 
 @section('title', $title)
@@ -46,6 +46,19 @@
                     @endhasrole
                 </div>
 
+                {{-- Generar PDF --}}
+
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <div class="card-title">Generar PDF</div>
+                        <div class="card-tools">
+                            <a class="btn btn-sm btn-primary" href="{{ route('brief-assign.pdf', $brief_assign->id) }}">
+                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 @foreach ($brief_assign->answers as $answer)
                     <div class="card my-4">
                         <div class="card-header font-weight-bold">{{ $answer->question }}</div>
@@ -62,6 +75,21 @@
                         <a class="btn btn-dark" href="{{ route('brief-assign.index') }}">Volver</a>
                     </div>
                 </div>
+
+
+                {{-- Generar PDF --}}
+
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <div class="card-title">Generar PDF</div>
+                        <div class="card-tools">
+                            <a class="btn btn-sm btn-primary" href="{{ route('brief-assign.pdf', $brief_assign->id) }}">
+                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
 
                 {{-- Formulario de borrar --}}
 
