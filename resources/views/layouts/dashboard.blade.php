@@ -124,7 +124,7 @@
         <!-- /.content-wrapper -->
 
         <footer class="main-footer text-right">
-            Desarrollador por <strong><a href="https://neuromedia.com" target="_blank">NeuroMedia</a>.</strong>
+            Desarrollador por <strong><a href="https://neuromedia.com.co" target="_blank">NeuroMedia</a>.</strong>
         </footer>
     </div>
 

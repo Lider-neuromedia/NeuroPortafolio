@@ -7,6 +7,7 @@ use App\Client;
 use App\ClientBrief;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AssignBriefRequest;
+use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Http\Request;
@@ -127,7 +128,7 @@ class BriefAssignController extends Controller
         });
 
         $options = new Options();
-        $options->set('defaultFont', 'Helvetica');
+        $options->set('defaultFont', 'helvetica');
         $dompdf = new Dompdf($options);
         $content = "";
 
@@ -146,9 +147,11 @@ class BriefAssignController extends Controller
             $content .= "</p>";
         }
 
+        $date = Carbon::now()->format('YmdHis');
+
         $dompdf->loadHtml($content);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-        $dompdf->stream();
+        $dompdf->stream("brief-$date.pdf");
     }
 }
