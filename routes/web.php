@@ -78,21 +78,23 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
 
 });
 
-Route::get('cmd-cache', function () {
-    Artisan::call('config:clear');
-    Artisan::call('cache:clear');
-    Artisan::call('config:cache');
-    Artisan::call('view:clear');
-    Artisan::call('route:clear');
-    return response()->json('ok', 200);
-});
+if (true) {
+    Route::get('cmd-cache', function () {
+        Artisan::call('config:clear');
+        Artisan::call('cache:clear');
+        Artisan::call('config:cache');
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        return response()->json('ok', 200);
+    });
 
-Route::get('cmd-storage', function () {
-    Artisan::call('storage:link');
-    return response()->json('ok', 200);
-});
+    Route::get('cmd-storage', function () {
+        Artisan::call('storage:link');
+        return response()->json('ok', 200);
+    });
 
-Route::get('cmd-db', function () {
-    Artisan::call('migrate --seed --no-interaction');
-    return response()->json('ok', 200);
-});
+    Route::get('cmd-db', function () {
+        Artisan::call('migrate --seed --no-interaction');
+        return response()->json('ok', 200);
+    });
+}
