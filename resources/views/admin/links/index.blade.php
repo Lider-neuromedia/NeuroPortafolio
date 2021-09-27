@@ -58,9 +58,10 @@
                             <td>
                                 <button
                                     type="button"
+                                    title="Listado de proyectos"
                                     data-detail="link-detail-{{ $link->id }}"
-                                    class="toggle-link-detail-btn btn btn-outline-primary btn-xs" title="Listado de proyectos">
-                                    <i class="fa fa-list" aria-hidden="true" data-detail="link-detail-{{ $link->id }}"></i>
+                                    class="toggle-link-detail-btn btn btn-outline-primary btn-xs">
+                                    Proyectos
                                 </button>
                             </td>
                             @hasrole('admin')

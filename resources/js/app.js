@@ -54,11 +54,12 @@ function configureToggleDetailLinks() {
 
     btns.forEach(function (btn) {
         btn.addEventListener('click', function (e) {
-
             const detailId = e.target.dataset.detail;
             const linkDetailElement = document.getElementById(detailId);
-            linkDetailElement.classList.toggle("detail-hidden");
 
+            if (linkDetailElement) {
+                linkDetailElement.classList.toggle("detail-hidden");
+            }
         });
     });
 }
