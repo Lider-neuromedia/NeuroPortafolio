@@ -1,11 +1,26 @@
-@extends('layouts.app')
+@extends('layouts.empty')
+
+@section('scripts')
+    <style>
+        @media screen and (min-width: 600px) {
+            main {
+                left: 50%;
+                position: fixed;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+            }
+        }
+    </style>
+@endsection
 
 @section('content')
-<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-center">
+                    <img src="{{asset('images/logo.png')}}" width="100px" height="auth">
+                </div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -36,6 +51,10 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Send Password Reset Link') }}
                                 </button>
+                                <br>
+                                <a class="btn btn-link" href="{{ route('login') }}">
+                                    {{ __('Iniciar Sesión') }}
+                                </a>
                             </div>
                         </div>
                     </form>
@@ -43,5 +62,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection
