@@ -31,10 +31,10 @@ class BriefRequest extends FormRequest
             'name' => ['required', 'string', 'max:200', "unique:briefs,name,$id"],
             'questions' => ['required', 'array', 'min:1'],
             'questions.*.id' => ['nullable', 'integer', 'exists:questions,id'],
-            'questions.*.question' => ['required', 'string', 'max:250'],
+            'questions.*.question' => ['required', 'string', 'max:190'],
             'questions.*.type' => ['required', "in:$types"],
             'questions.*.options' => ['nullable', 'array', 'min:1'],
-            'questions.*.options.*' => ['required', 'string', 'max:250'],
+            'questions.*.options.*' => ['required', 'string', 'max:190'],
         ];
     }
 }
